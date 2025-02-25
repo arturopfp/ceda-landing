@@ -348,6 +348,10 @@ section {
         --bs-accordion-active-color: $primary-color;
     }
 
+    .accordion-button::after {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='RGB(180, 189, 0)' stroke-linecap='round' stroke-linejoin='round'><path d='M2 5L8 11L14 5'/></svg>");
+    }
+
 
     .accordion-button:not(.collapsed) {
         color: white;
@@ -357,6 +361,7 @@ section {
 
     .accordion-button:not(.collapsed)::after {
         color: $primary-color;
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='RGB(180, 189, 0)' stroke-linecap='round' stroke-linejoin='round'><path d='M2 5L8 11L14 5'/></svg>");
         transform: var(--bs-accordion-btn-icon-transform);
     }
 
@@ -385,6 +390,7 @@ section {
     .accordion {
         --bs-accordion-color: $primary-color;
         --bs-accordion-bg: black;
+        width: 100%;
     }
 }
 
@@ -403,4 +409,8 @@ section {
 
 .green-txt {
     color: $primary-color;
+}
+
+.faq-txt {
+    font-size: 14px;
 }

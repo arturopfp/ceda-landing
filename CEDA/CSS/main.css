@@ -302,6 +302,9 @@ section .certification-container .certification-body ul li {
   width: 100%;
   --bs-accordion-active-color: $primary-color;
 }
+.faq-section .accordion-button::after {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='RGB(180, 189, 0)' stroke-linecap='round' stroke-linejoin='round'><path d='M2 5L8 11L14 5'/></svg>");
+}
 .faq-section .accordion-button:not(.collapsed) {
   color: white;
   background-color: none;
@@ -309,6 +312,7 @@ section .certification-container .certification-body ul li {
 }
 .faq-section .accordion-button:not(.collapsed)::after {
   color: #B4BD00;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='RGB(180, 189, 0)' stroke-linecap='round' stroke-linejoin='round'><path d='M2 5L8 11L14 5'/></svg>");
   transform: var(--bs-accordion-btn-icon-transform);
 }
 .faq-section .faq-section .accordion-button:not(.collapsed) {
@@ -334,6 +338,7 @@ section .certification-container .certification-body ul li {
 .faq-section .accordion {
   --bs-accordion-color: $primary-color;
   --bs-accordion-bg: black;
+  width: 100%;
 }
 
 .title {
@@ -351,4 +356,8 @@ section .certification-container .certification-body ul li {
 
 .green-txt {
   color: #B4BD00;
+}
+
+.faq-txt {
+  font-size: 14px;
 }/*# sourceMappingURL=main.css.map */
