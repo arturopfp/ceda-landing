@@ -16,8 +16,44 @@ body p {
   color: white;
 }
 
+.sticky-banner-container {
+  width: 100%;
+  height: 85px;
+  background-color: #37393F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+.sticky-banner-container .main-cta {
+  color: #B4BD00;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0px 15px 0 0;
+}
+.sticky-banner-container .main-cta .cta {
+  color: white;
+}
+.sticky-banner-container img {
+  width: 36px;
+  height: 21.24px;
+}
+.sticky-banner-container .cta-btn {
+  width: 140px;
+  height: 35px;
+  background-color: #B4BD00;
+  color: black;
+  margin-left: 70px;
+  font-size: 14px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
 .header-container {
   width: 847px;
+  margin-top: 175px;
 }
 .header-container .subheader {
   font-size: 19px;
@@ -27,6 +63,8 @@ section {
   display: flex;
   justify-content: space-between;
   width: 847px;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 section .card-subcontainer {
   width: 260px;
@@ -35,7 +73,7 @@ section .card-subcontainer {
   flex-direction: column;
   align-items: center;
   background: linear-gradient(to bottom, #1f1d1d, rgba(0, 0, 0, 0));
-  border-radius: 20px;
+  border-radius: 30px;
 }
 section .card-subcontainer .card-header {
   margin-top: 32px;
@@ -54,6 +92,7 @@ section .certification-container {
   border: 1px solid #B4BD00;
   border-radius: 25px;
   background: linear-gradient(to bottom, #1f1d1d, rgba(0, 0, 0, 0));
+  margin-bottom: 125px;
 }
 section .certification-container .certification-header {
   display: flex;
@@ -115,6 +154,7 @@ section .certification-container .certification-body ul li {
   background-color: #B4BD00;
   border-radius: 20px;
   margin-bottom: 150px;
+  margin-top: 175px;
 }
 .form-section h3 {
   font-size: 30px;
@@ -177,6 +217,7 @@ section .certification-container .certification-body ul li {
 .form-section form .form-column button {
   width: 143px;
   height: 46px;
+  font-size: 14px;
   background-color: #37393F;
   color: white;
   border: none;
@@ -231,6 +272,7 @@ section .certification-container .certification-body ul li {
   border: none;
   border-radius: 5px;
   margin-top: 70px;
+  font-size: 14px;
 }
 
 .bgimg-container::after {
@@ -294,6 +336,7 @@ section .certification-container .certification-body ul li {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 120px;
 }
 .faq-section .accordion-item {
   color: #B4BD00;
@@ -341,10 +384,42 @@ section .certification-container .certification-body ul li {
   width: 100%;
 }
 
+.euro-container {
+  display: flex;
+  margin-top: 150px;
+  width: 847px;
+  align-items: center;
+  margin-bottom: 300px;
+}
+.euro-container .euro-img-container {
+  width: 72px;
+}
+.euro-container .euro-txt {
+  width: 785px;
+  font-size: 14px;
+  margin: 0 0 0 15px;
+  line-height: 15px;
+}
+
+footer {
+  height: 300px;
+  width: 100%;
+  background-color: #B4BD00;
+}
+
 .title {
   color: #B4BD00;
   font-weight: bold;
   font-size: 40px;
+}
+
+.faq-title {
+  margin-bottom: 50px;
+  color: white;
+}
+
+.diploma {
+  margin-bottom: 42px;
 }
 
 .width {

@@ -19,8 +19,48 @@ body {
     }
 }
 
+.sticky-banner-container {
+    width: 100%;
+    height: 85px;
+    background-color: #37393F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; 
+    top: 0;
+    z-index: 1000;
+
+    .main-cta{
+        color: $primary-color;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0px 15px 0 0;
+
+        .cta {
+            color: white;
+        }
+    }
+
+    img {
+        width: 36px;
+        height: 21.24px;
+    }
+
+    .cta-btn {
+        width: 140px;
+        height: 35px;
+        background-color: $primary-color;
+        color: black;
+        margin-left: 70px;
+        font-size: 14px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+}
+
 .header-container {
     width: 847px;
+    margin-top: 175px;
 
     .subheader {
         font-size: 19px;
@@ -31,6 +71,8 @@ section {
     display: flex;
     justify-content: space-between;
     width: 847px;
+    margin-top: 60px;
+    margin-bottom: 60px;
 
     .card-subcontainer {
         width: 260px;
@@ -39,7 +81,7 @@ section {
         flex-direction: column;
         align-items: center;
         background: linear-gradient(to bottom, #1f1d1d, #0000);
-        border-radius: 20px;
+        border-radius: 30px;
 
         .card-header {
             margin-top: 32px;
@@ -61,6 +103,7 @@ section {
         border: 1px solid $primary-color;
         border-radius: 25px;
         background: linear-gradient(to bottom, #1f1d1d, #0000);
+        margin-bottom: 125px;
 
         .certification-header {
             display: flex;
@@ -135,6 +178,7 @@ section {
     background-color: $primary-color;
     border-radius: 20px;
     margin-bottom: 150px;
+    margin-top: 175px;
 
     h3 {
         font-size: 30px;
@@ -202,6 +246,7 @@ section {
             button {
                 width: 143px;
                 height: 46px;
+                font-size: 14px;
                 background-color: #37393F;
                 color: white;
                 border: none;
@@ -267,6 +312,7 @@ section {
             border: none;
             border-radius: 5px;
             margin-top: 70px;
+            font-size: 14px;
         }
     }
 }
@@ -339,6 +385,7 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 120px;
 
     .accordion-item {
         color: $primary-color;
@@ -394,10 +441,45 @@ section {
     }
 }
 
+.euro-container {
+    display: flex;
+    margin-top: 150px;
+    width: 847px;
+    align-items: center;
+    margin-bottom: 300px;
+
+    .euro-img-container {
+        width: 72px;
+
+    }
+
+    .euro-txt {
+        width: 785px;
+        font-size: 14px;
+        margin: 0 0 0 15px;
+        line-height: 15px;
+    }
+}
+
+footer {
+    height:300px;
+    width: 100%;
+    background-color: $primary-color;
+}
+
 .title {
     color: $primary-color;
     font-weight: bold;
     font-size: 40px;
+}
+
+.faq-title {
+    margin-bottom: 50px;
+    color: white;
+}
+
+.diploma {
+    margin-bottom: 42px;
 }
 
 .width {
