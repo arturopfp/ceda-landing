@@ -12,7 +12,7 @@ body {
   background-color: black;
   font-family: "Montserrat", serif;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   body {
     min-width: 100%;
   }
@@ -32,7 +32,7 @@ body p {
   top: 0;
   z-index: 1000;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .sticky-banner-container {
     display: none;
   }
@@ -65,7 +65,7 @@ body p {
   width: 847px;
   margin-top: 175px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .header-container {
     width: 297px;
     margin-top: 120px;
@@ -74,7 +74,7 @@ body p {
 .header-container .subheader {
   font-size: 19px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .header-container .subheader {
     font-size: 16px;
   }
@@ -87,7 +87,7 @@ section {
   margin-top: 60px;
   margin-bottom: 60px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   section {
     width: 311px;
     flex-direction: column;
@@ -123,7 +123,7 @@ section .certification-container {
   background: linear-gradient(to bottom, #1f1d1d, rgba(0, 0, 0, 0));
   margin-bottom: 125px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   section .certification-container {
     width: 297px;
     height: auto;
@@ -143,7 +143,7 @@ section .certification-container .certification-header .certification-logo {
   align-items: center;
   border-radius: 9px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   section .certification-container .certification-header .certification-logo {
     height: auto;
   }
@@ -160,7 +160,7 @@ section .certification-container .certification-header .header-info h3 {
   width: 321px;
   color: white;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   section .certification-container .certification-header .header-info h3 {
     font-size: 13px;
     width: auto;
@@ -202,7 +202,7 @@ section .certification-container .certification-body ul li {
   margin-bottom: 150px;
   margin-top: 175px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section {
     width: 345px;
     height: auto;
@@ -213,7 +213,7 @@ section .certification-container .certification-body ul li {
   font-weight: bold;
   margin-top: 61px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section h3 {
     font-size: 25px;
   }
@@ -224,7 +224,7 @@ section .certification-container .certification-body ul li {
   width: 627px;
   text-align: center;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section p {
     font-size: 14px;
     width: 293px;
@@ -236,7 +236,7 @@ section .certification-container .certification-body ul li {
   width: 766px;
   margin-top: 30px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section form {
     flex-direction: column;
     align-items: center;
@@ -248,7 +248,7 @@ section .certification-container .certification-body ul li {
   flex-direction: column;
   width: 371px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section form .form-column {
     width: 292px;
   }
@@ -260,7 +260,7 @@ section .certification-container .certification-body ul li {
   border: none;
   padding-left: 25px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section form .form-column input {
     margin-top: 15px;
   }
@@ -283,7 +283,7 @@ section .certification-container .certification-body ul li {
   margin-left: 45px;
   margin-top: 30px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section .terms-container {
     margin-left: 25px;
     width: 292px;
@@ -305,7 +305,7 @@ section .certification-container .certification-body ul li {
   color: white;
   margin-left: 5px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section .terms-container .check-container label {
     width: 267px;
   }
@@ -322,7 +322,7 @@ section .certification-container .certification-body ul li {
   border-radius: 5px;
   margin: 22px 0 40px 45px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .form-section .form-btn {
     margin-left: 25px;
   }
@@ -338,7 +338,7 @@ section .certification-container .certification-body ul li {
   justify-content: center;
   align-items: center;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .bgimg-container {
     width: 390px;
     height: auto;
@@ -352,7 +352,7 @@ section .certification-container .certification-body ul li {
   align-items: center;
   margin-top: 180px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .bgimg-container .wrapper-container {
     width: 316px;
     margin-top: 90px;
@@ -374,7 +374,7 @@ section .certification-container .certification-body ul li {
   margin-top: 65px;
   width: 803px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .bgimg-container .wrapper-container .logos-container {
     width: 316px;
   }
@@ -392,7 +392,7 @@ section .certification-container .certification-body ul li {
   margin-top: 70px;
   font-size: 14px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .bgimg-container .wrapper-container button {
     width: 115px;
     z-index: 1000;
@@ -416,7 +416,7 @@ section .certification-container .certification-body ul li {
   justify-content: space-between;
   margin-top: 75px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .card-section {
     flex-direction: column;
     align-items: center;
@@ -432,7 +432,7 @@ section .certification-container .certification-body ul li {
   background: linear-gradient(to bottom, #1f1d1d, rgba(0, 0, 0, 0));
   border-radius: 20px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .card-section .card-container {
     margin-bottom: 40px;
     width: 311px;
@@ -475,7 +475,7 @@ section .certification-container .certification-body ul li {
   align-items: center;
   margin-top: 120px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .faq-section {
     width: 316px;
   }
@@ -520,7 +520,7 @@ section .certification-container .certification-body ul li {
   overflow-anchor: none;
   transition: var(--bs-accordion-transition);
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .faq-section .accordion-button {
     font-size: 14px;
   }
@@ -538,7 +538,7 @@ section .certification-container .certification-body ul li {
   align-items: center;
   margin-bottom: 300px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .euro-container {
     width: 316px;
     flex-direction: column;
@@ -554,7 +554,7 @@ section .certification-container .certification-body ul li {
   margin: 0 0 0 15px;
   line-height: 15px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .euro-container .euro-txt {
     width: 311px;
     margin: 20px 0px 0px 0px;
@@ -572,7 +572,7 @@ footer {
   font-weight: bold;
   font-size: 40px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .title {
     width: auto;
     font-size: 25px;
@@ -587,14 +587,14 @@ footer {
 .diploma {
   margin-bottom: 42px;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .diploma {
     width: 260px;
     font-size: 25px;
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .diploma-img {
     width: 327px;
   }
@@ -606,7 +606,7 @@ footer {
   margin-top: 80px;
   line-height: 123%;
 }
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .width {
     width: 311px;
   }
