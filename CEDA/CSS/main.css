@@ -116,7 +116,6 @@ section .card-subcontainer p {
 }
 section .certification-container {
   width: 414px;
-  height: 334px;
   padding: 50px 20px;
   border: 1px solid #B4BD00;
   border-radius: 25px;
@@ -190,6 +189,25 @@ section .certification-container .certification-body ul li {
   font-weight: lighter;
   font-size: 12px;
   margin-top: 5px;
+}
+section .certification-container .certification-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+section .certification-container .certification-footer .btn-matriculacion {
+  width: 132px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #B4BD00;
+  text-decoration: none;
+  background-color: #161616;
+  font-size: 14px;
+  border-radius: 4px;
 }
 
 .form-section {
@@ -562,9 +580,27 @@ section .certification-container .certification-body ul li {
 }
 
 footer {
-  height: 300px;
+  height: 200px;
   width: 100%;
   background-color: #B4BD00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer .footer-wrapper {
+  width: 847px;
+}
+@media (max-width: 600px) {
+  footer .footer-wrapper {
+    width: auto;
+  }
+}
+footer .footer-wrapper .social-wrapper {
+  display: flex;
+  width: 170px;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 10px;
 }
 
 .title {
@@ -594,6 +630,9 @@ footer {
   }
 }
 
+.diploma-img {
+  margin-bottom: 100px;
+}
 @media (max-width: 600px) {
   .diploma-img {
     width: 327px;
