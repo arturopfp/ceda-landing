@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colaboraciones con Artistas - El Paint Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .main-header {
+            background: #fff;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: inline-block;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .main-nav {
+            display: none; /* Hidden on mobile by default */
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #0066cc;
+        }
+
+        .nav-cta-button {
+            display: none; /* Hidden by default */
+        }
+
+        .main-nav a.btn-primary {
+            color: #fff;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .mobile-menu-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: #000;
+        }
+
+        .mobile-header-right {
+            display: none; /* Hidden on desktop */
+            align-items: center;
+            gap: 10px; /* Añadido un pequeño espacio */
+        }
+
+        .mobile-header-right .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: auto;
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 3px solid #0066cc;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .btn {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero a.btn.btn-primary {
+            background: #fff;
+            color: #0066cc;
+        }
+
+        .hero a.btn.btn-primary:hover {
+            background: #f0f0f0;
+            color: #0052a3;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #0066cc;
+            border: 2px solid #0066cc;
+        }
+
+        .btn-secondary:hover {
+            background: #0066cc;
+            color: #fff;
+        }
+        
+        /* --- ESTILOS PARA NUEVAS SECCIONES --- */
+        .narrative-block {
+            padding: 60px 0px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        .narrative-block h2 {
+            padding-bottom: 20px;
+        }
+        .narrative-block p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        .narrative-video {
+            max-width:  0px 0;
+            border: 1px solid rgba(0, 42, 89, 0.08);
+            border-left: 6px solid #0066cc;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 249, 255, 0.9));
+            box-shadow: 0 12px 24px rgba(0, 37, 87, 0.08);
+        }
+
+        .collaboration-paths {
+            padding: 60px 20px;
+            background: #fff;
+        }
+
+        .path-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        .path-card:hover {
+            border-color: #0066cc;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .path-image {
+            flex: 1;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #888;
+            font-weight: 500;
+            min-height: 200px;
+            min-width: 250px;
+        }
+
+        .path-content {
+            flex: 2;
+        }
+
+        .path-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .path-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .impact-section {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .impact-section h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .impact-section .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .impact-card {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: left;
+        }
+
+        .impact-card-image {
+            width: 100%;
+            height: 200px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1rem;
+            font-weight: 500;
+            overflow: hidden;
+        }
+
+        .impact-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Slider styles for mobile - carousel-wrapper style */
+        .slider-container {
+            position: relative;
+            display: none;
+        }
+
+        .slider-wrapper {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            padding: 20px 0;
+        }
+
+        .slider-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-track {
+            display: flex;
+            gap: 20px;
+            padding: 0 10px;
+        }
+
+        .slider-track .impact-card {
+            min-width: 280px;
+            max-width: 320px;
+            flex-shrink: 0;
+            scroll-snap-align: center;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: all 0.2s ease;
+            color: #0066cc;
+        }
+
+        .slider-arrow:hover {
+            border-color: #0066cc;
+            background-color: #f8f9fa;
+        }
+
+        .slider-arrow.prev {
+            left: 0;
+        }
+
+        .slider-arrow.next {
+            right: 0;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ccc;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: #0066cc;
+        }
+
+        .impact-card blockquote {
+            font-size: 1.1rem;
+            margin: 0 0 15px 0;
+            font-style: italic;
+            color: #333;
+        }
+
+        .impact-card cite {
+            font-weight: 600;
+            color: #000;
+            font-style: normal;
+        }
+
+        .connection-block {
+            padding: 60px 20px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .connection-block p {
+            font-size: 1.5rem;
+            font-weight: 600;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+
+        .closing-block {
+            padding: 80px 20px;
+            text-align: center;
+            background: #f2f3f5; /* blanco con más gris */
+            color: #000;
+        }
+
+        .closing-block p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        .closing-block .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .closing-block .btn-primary {
+            background: #fff;
+            color: #0066cc;
+        }
+        .closing-block .btn-secondary {
+            background: #fff;
+            color: #0066cc;
+            border: 2px solid #0066cc;
+        }
+        .closing-block .btn-secondary:hover {
+            background: #f0f6ff;
+            color: #0052a3;
+            border-color: #0052a3;
+        }
+
+        /* --- INICIA ZONA DE CÓDIGO RESPONSIVE --- */
+        @media (max-width: 920px) {
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 81px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                border-bottom: 1px solid #e0e0e0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            }
+            .main-nav.is-open {
+                display: block;
+            }
+            .mobile-header-right {
+                display: flex;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .nav-cta-button {
+                display: none;
+            }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            .path-card {
+                flex-direction: column;
+                padding: 25px;
+            }
+            .path-content {
+                text-align: center;
+            }
+            .path-content .btn {
+                display: inline-block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .path-image {
+                width: 100%;
+                min-width: unset;
+            }
+            /* Show slider, hide grid on mobile */
+            .impact-grid {
+                display: none;
+            }
+            .slider-container {
+                display: block;
+            }
+        }
+
+        @media (min-width: 921px) {
+            .main-nav { display: flex; }
+            .nav-cta-button { display: inline-block; }
+            .mobile-menu-toggle { display: none; }
+            .mobile-header-right .btn-primary { display: none; }
+            .hero { padding-top: 60px; }
+        }
+        /* --- TERMINA ZONA DE CÓDIGO RESPONSIVE --- */
+
+        html { scroll-behavior: smooth; }
+        .btn:focus { outline: 3px solid #0066cc; outline-offset: 2px; }
+        
+        /* Footer Styles */
+        .custom-footer, .footer-column ul li a { color: #ffffff; }
+        .custom-footer { background-color: #1e293b; padding: 60px 40px 20px; font-family: sans-serif; }
+        .footer-main-content { display: flex; justify-content: space-between; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-column { flex: 1; min-width: 200px; padding: 0 15px; }
+        .footer-logo { border: 2px solid #ffffff; padding: 20px; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 1.5em; letter-spacing: 2px; line-height: 1.2; }
+        .footer-social-icons { margin-top: 20px; display: flex; gap: 10px; }
+        .footer-social-icons a { display: inline-block; width: 30px; height: 30px; background-color: #4a4a8a; border-radius: 3px; }
+        .footer-column h6 { font-size: 16px; font-weight: bold; margin-bottom: 20px; text-transform: capitalize; }
+        .footer-column ul { list-style: none; padding: 0; margin: 0; }
+        .footer-column ul li { margin-bottom: 12px; }
+        .footer-column ul li a { text-decoration: none; transition: color 0.3s ease; }
+        .footer-column ul li a:hover { color: #f59e0b; }
+        .footer-bottom { text-align: center; font-size: 14px; color: #dddddd; }
+        .footer-bottom p { margin: 5px 0; }
+
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo-link">
+                <img src="https://staging-a676-acrilicamexicana.wpcomstaging.com/wp-content/uploads/2021/09/LOGOTIPO_-ORIGINAL_EL-PAINT-LAB-84x84.jpg" alt="El Paint Lab Logo" class="logo">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="colaboraciones-artistas.html" class="active">Artistas / Colaboraciones</a></li>
+                    <li><a href="#">Comunidad de Arte</a></li>
+                    <li><a href="#">Cómo funciona</a></li>
+                    <li><a href="#">Nuestra Historia</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#" class="btn btn-primary nav-cta-button">Comprar Ahora</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-header-right">
+                <a href="#" class="btn btn-primary" onclick="handleCTA(event, 'Comprar ahora')">Comprar Ahora</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+                    <svg class="ast-mobile-svg ast-menu-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M3 13h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 7h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 19h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Colaboraciones con Artistas</h1>
+                <p>Fortalecemos la comunidad artística impulsando proyectos, residencias y patrocinios que conectan la creación con la innovación material.</p>
+                
+            </div>
+        </section>
+
+        <section class="narrative-block">
+            <div class="container">
+                <h2>Conectamos con artistas que convierten el color en experiencia.</h2>
+                <!-- Video placeholder block -->
+                <div class="narrative-video" style="max-width: 900px; margin: 20px auto 0;">
+                    <video controls preload="metadata" style="width:100%; border-radius: 12px; background:#000;"
+                           poster="assets/placeholders/video-poster.jpg">
+                        <source src="assets/videos/colaboraciones-intro.mp4" type="video/mp4">
+                        Tu navegador no soporta video HTML5. Puedes descargarlo
+                        <a href="assets/videos/colaboraciones-intro.mp4">aquí</a>.
+                    </video>
+                </div>
+                <p>Creemos que el arte crece cuando se comparte. Por eso, colaboramos con artistas que buscan experimentar, desarrollar nuevos materiales y expandir los límites de su práctica. A través de alianzas, apoyos y residencias, generamos oportunidades para crear, mostrar y conectar.</p>
+            </div>
+        </section>
+
+        <section class="collaboration-paths" id="subniveles">
+            <div class="container">
+                <article class="path-card">
+                    <div class="path-image">Imagen</div>
+                    <div class="path-content">
+                        <h3>🔹 Carrusel de Proyectos</h3>
+                        <p>Muestra de los proyectos realizados junto a artistas que experimentan con nuestros pigmentos y medios. Una galería viva de color, técnica y proceso.</p>
+                        <a href="/colaboraciones-artistas/carussel-de-proyectos" class="btn btn-primary" onclick="handleCTA(event, 'Ver proyectos')">Ver proyectos</a>
+                    </div>
+                </article>
+                <article class="path-card">
+                    <div class="path-image">Imagen</div>
+                    <div class="path-content">
+                        <h3>🔹 Patrocinios</h3>
+                        <p>Apoyamos exposiciones, talleres, murales y producciones independientes que promueven la práctica artística en México.</p>
+                        <a href="/colaboraciones-artistas/patrocinios" class="btn btn-primary" onclick="handleCTA(event, 'Conocer patrocinios')">Conocer patrocinios</a>
+                    </div>
+                </article>
+                <article class="path-card">
+                    <div class="path-image">Imagen</div>
+                    <div class="path-content">
+                        <h3>🔹 Rondo Residency</h3>
+                        <p>Programa de residencia artística en colaboración con Rondo, una organización fundada en 2024 en la Ciudad de México. Ofrece un espacio accesible para la creación, la investigación y la conexión con la escena contemporánea.</p>
+                        <a href="/colaboraciones-artistas/rondo" class="btn btn-primary" onclick="handleCTA(event, 'Conocer Rondo Residency')">Conocer Rondo Residency</a>
+                    </div>
+                </article>
+                <!-- Moved CTA from connection-block to bottom of collaboration-paths -->
+                <div class="path-end-cta" style="text-align:center; margin-top: 20px;">
+                    <p style="padding-bottom: 24px;">¿Quieres conocer los materiales que hacen posibles estas colaboraciones?</p>
+                    <a href="usos-e-industrias.html" class="btn btn-secondary" onclick="handleCTA(event, 'Ver Usos e Industrias')">Ver Usos e Industrias</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="impact-section">
+            <div class="container">
+                <h2>Artistas que han colaborado con nosotros</h2>
+                <p class="subtitle">Sus procesos inspiran nuevas formas de entender el color y la técnica.</p>
+                <div class="impact-grid">
+                    <article class="impact-card">
+                        <div class="impact-card-image">
+                            <!-- <img src="your-image-url.jpg" alt="Artist collaboration"> -->
+                            Image placeholder
+                        </div>
+                        <blockquote>"Experimentar con los pigmentos de El Paint Lab cambió mi forma de entender el color."</blockquote>
+                        <cite>— Artista Colaborador</cite>
+                    </article>
+                    <article class="impact-card">
+                        <div class="impact-card-image">
+                            <!-- <img src="your-image-url.jpg" alt="Artist resident"> -->
+                            Image placeholder
+                        </div>
+                        <blockquote>"El apoyo técnico fue clave para desarrollar mi obra en gran formato."</blockquote>
+                        <cite>— Artista Residente</cite>
+                    </article>
+                    <article class="impact-card">
+                        <div class="impact-card-image">
+                            <!-- <img src="your-image-url.jpg" alt="Rondo participant"> -->
+                            Image placeholder
+                        </div>
+                        <blockquote>"El intercambio entre artistas locales e internacionales enriqueció todo el proceso."</blockquote>
+                        <cite>— Participante Rondo</cite>
+                    </article>
+                </div>
+
+                <!-- Mobile Slider -->
+                <div class="slider-container">
+                    <button class="slider-arrow prev" aria-label="Previous slide">‹</button>
+                    <div class="slider-wrapper">
+                        <div class="slider-track">
+                            <article class="impact-card">
+                                <div class="impact-card-image">
+                                    <!-- <img src="your-image-url.jpg" alt="Artist collaboration"> -->
+                                    Image placeholder
+                                </div>
+                                <blockquote>"Experimentar con los pigmentos de El Paint Lab cambió mi forma de entender el color."</blockquote>
+                                <cite>— Artista Colaborador</cite>
+                            </article>
+                            <article class="impact-card">
+                                <div class="impact-card-image">
+                                    <!-- <img src="your-image-url.jpg" alt="Artist resident"> -->
+                                    Image placeholder
+                                </div>
+                                <blockquote>"El apoyo técnico fue clave para desarrollar mi obra en gran formato."</blockquote>
+                                <cite>— Artista Residente</cite>
+                            </article>
+                            <article class="impact-card">
+                                <div class="impact-card-image">
+                                    <!-- <img src="your-image-url.jpg" alt="Rondo participant"> -->
+                                    Image placeholder
+                                </div>
+                                <blockquote>"El intercambio entre artistas locales e internacionales enriqueció todo el proceso."</blockquote>
+                                <cite>— Participante Rondo</cite>
+                            </article>
+                        </div>
+                    </div>
+                    <button class="slider-arrow next" aria-label="Next slide">›</button>
+                    <div class="slider-dots">
+                        <button class="slider-dot active" aria-label="Go to slide 1"></button>
+                        <button class="slider-dot" aria-label="Go to slide 2"></button>
+                        <button class="slider-dot" aria-label="Go to slide 3"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="closing-block">
+            <div class="container">
+                <p>Si eres artista, curador o institución y quieres colaborar o desarrollar proyectos con nosotros, contactanos</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-secondary" onclick="handleCTA(event, 'Contactar para colaboración')">Contactar para colaboración</a>
+                </div>
+            </div>
+        </section>
+
+        
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-main-content">
+            <div class="footer-column">
+                <div class="footer-logo">EL<br>PAINT<br>LAB</div>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Facebook"></a>
+                    <a href="#" aria-label="Twitter"></a>
+                    <a href="#" aria-label="Instagram"></a>
+                </div>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Navegación</h6>
+                <ul>
+                    <li><a href="#">Usos e Industrias</a></li>
+                    <li><a href="#">Artistas/Colaboraciones</a></li>
+                    <li><a href="#">Comunidad de Arte</a></li>
+                    <li><a href="#">Nuestra Historia</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Tienda</h6>
+                <ul>
+                    <li><a href="#">Pigmentos Fríos</a></li>
+                    <li><a href="#">Pigmentos Cálidos</a></li>
+                    <li><a href="#">Medios Acrílicos</a></li>
+                    <li><a href="#">Kits Completos</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Soporte</h6>
+                <ul>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Envíos y Devoluciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>© 2025 El Paint Lab. Todos los derechos reservados.</p>
+            <p>Hecho con ❤️ para artistas en México</p>
+        </div>
+    </footer>
+
+    <script>
+        // CTA Click Handler
+        function handleCTA(event, ctaName) {
+            event.preventDefault();
+            console.log('CTA Clicked:', ctaName);
+            // alert('Wireframe: ' + ctaName + ' clicked');
+        }
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('is-open');
+                const isExpanded = mainNav.classList.contains('is-open');
+                menuToggle.setAttribute('aria-expanded', isExpanded);
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !href.includes('shop') && !href.includes('demo') && !href.includes('contact')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Impact Slider for Mobile - Carousel-wrapper style
+        const sliderWrapper = document.querySelector('.slider-wrapper');
+        const sliderTrack = document.querySelector('.slider-track');
+        const sliderCards = document.querySelectorAll('.slider-track .impact-card');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+        const prevButton = document.querySelector('.slider-arrow.prev');
+        const nextButton = document.querySelector('.slider-arrow.next');
+
+        if (sliderWrapper && sliderCards.length > 0) {
+            let currentSlide = 0;
+            const totalSlides = sliderCards.length;
+
+            function scrollToSlide(index) {
+                const card = sliderCards[index];
+                if (card) {
+                    card.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
+
+            function updateDots() {
+                const scrollLeft = sliderWrapper.scrollLeft;
+                const cardWidth = sliderCards[0].offsetWidth;
+                const gap = 20; // gap between cards
+                currentSlide = Math.round(scrollLeft / (cardWidth + gap));
+
+                sliderDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                scrollToSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                scrollToSlide(currentSlide);
+            }
+
+            // Arrow buttons
+            if (nextButton) {
+                nextButton.addEventListener('click', nextSlide);
+            }
+
+            if (prevButton) {
+                prevButton.addEventListener('click', prevSlide);
+            }
+
+            // Dots
+            sliderDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    scrollToSlide(currentSlide);
+                });
+            });
+
+            // Update dots on scroll
+            sliderWrapper.addEventListener('scroll', updateDots);
+
+            // Initialize
+            updateDots();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de documentos académicos electrónicos</title>
+    <link rel="icon" href="https://www.gob.mx/cms/uploads/image/file/477484/favicon.ico">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: #0c231e;
+            color: white;
+            padding: 10px 0;
+        }
+
+        .top-bar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-sep {
+            height: 30px; /* Adjust as needed */
+            filter: brightness(0) invert(1); /* Makes the SVG white */
+        }
+
+        .sep-text {
+            font-weight: bold;
+            margin-left: -750px;
+            font-size: 1.2em;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .menu-icon .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+        }
+
+        /* Main Header */
+        .header-main {
+            background-color: #1a4f3b;
+            padding: 15px 0;
+        }
+
+        .header-main-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-gobmx {
+            height: 40px; /* Adjust as needed */
+            filter: brightness(0) invert(1); /* Makes the SVG white */
+        }
+
+        .siged-text {
+            font-weight: bold;
+            color: white;
+            font-size: 1.5em;
+            margin-left: -750px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #117a65; /* Dark green similar to the image */
+            color: white;
+            padding: 40px 0;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz-8Y7_lQ_eC_G4u1L9yK1k_G_y1m_R5_0-g&s'); /* Placeholder for background pattern */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background-color: #eee;
+            padding: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .breadcrumbs a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .main-content {
+            background-color: white;
+            padding: 30px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content h2 {
+            color: #1a4f3b;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .main-content h3 {
+            color: #555;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .detail-card {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .card-left {
+            flex: 1;
+            min-width: 250px; /* Minimum width for the left section */
+        }
+
+        .details-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .details-button:hover {
+            background-color: #0056b3;
+        }
+
+        .qr-code-placeholder {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            min-height: 200px; /* Ensure a minimum height for the QR code area */
+        }
+
+        .qr-code-image {
+            max-width: 150px; /* Adjust size of the QR code image */
+            height: auto;
+        }
+
+        .card-right {
+            flex: 2;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 8px;
+            min-width: 300px; /* Minimum width for the right section */
+        }
+
+        .card-right p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .card-right strong {
+            color: #333;
+            display: inline-block;
+            width: 150px; /* Align labels */
+        }
+
+        .info-text {
+            font-size: 0.9em;
+            color: #666;
+            background-color: #e6f7ff;
+            border-left: 5px solid #007bff;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0c231e;
+            color: white;
+            padding: 30px 0;
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+
+        .footer-content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .logo-gobmx-footer {
+            height: 35px;
+            filter: brightness(0) invert(1);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 5px;
+        }
+
+        .footer-links ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links p {
+            margin-bottom: 10px;
+            max-width: 250px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .top-bar-content,
+            .header-main-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .sep-text,
+            .siged-text {
+                margin-left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .detail-card {
+                flex-direction: column;
+            }
+
+            .card-left, .card-right {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <div class="container top-bar-content">
+            <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="Gobierno de México" class="logo-sep">
+            <span class="sep-text">SEP</span>
+            <div class="menu-icon">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-main">
+        <div class="container header-main-content">
+            <img src="https://framework-gb.cdn.gob.mx/landing/img/logomx.svg" alt="Gobierno de México" class="logo-gobmx">
+            <span class="siged-text">SIGED</span>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="container hero-content">
+            <h1>Consulta de documentos académicos electrónicos</h1>
+        </div>
+    </div>
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <a href="#">Inicio</a> > <a href="#">Consultas</a> > <a href="#">Documentos académicos electrónicos</a> > <a href="#">Título autenticado</a> > Detalle
+        </div>
+    </div>
+
+    <div class="main-content container">
+        <h2>Consulta de títulos electrónicos autenticados por la DGAIR</h2>
+        <h3>Título Autenticado</h3>
+
+        <div class="detail-card">
+            <div class="card-left">
+                <button class="details-button">Detalles</button>
+                <div class="qr-code-placeholder">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_Gov.uk_website.svg" alt="Código QR" class="qr-code-image">
+                </div>
+            </div>
+            <div class="card-right">
+                <p><strong>Nombre:</strong> YAZMÍN ROSAS MONDRAGÓN</p>
+                <p><strong>Nivel:</strong> MAESTRÍA</p>
+                <p><strong>Autoridad Emisora:</strong> UNIVERSIDAD DEL VALLE DE MÉXICO</p>
+                <p><strong>Carrera:</strong> MAESTRÍA EN ATENCIÓN A LAS NECESIDADES EDUCATIVAS DEL DESARROLLO</p>
+                <p><strong>Folio Digital:</strong> 0e0f72d0-9a6a-4b46-93e6-511005b620ad</p>
+            </div>
+        </div>
+
+        <p class="info-text">La información de los certificados que se muestran en este portal, son el resultado de la integración de información que envían las autoridades educativas de los estados y la Ciudad de México. "En caso de que la información presentada no coincida con tus resultados obtenidos en el ciclo escolar o no esté disponible, por favor ponte en contacto con la autoridad de tu centro escolar."</p>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <img src="https://framework-gb.cdn.gob.mx/landing/img/logomx.svg" alt="Gobierno de México" class="logo-gobmx-footer">
+            <div class="footer-links">
+                <div>
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#">Enlaces Participa Publicaciones Oficiales</a></li>
+                        <li><a href="#">Plataforma Nacional de Transparencia</a></li>
+                        <li><a href="#">Alerta</a></li>
+                        <li><a href="#">Denuncia</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>¿Qué es gob.mx?</h4>
+                    <p>Es el portal único de trámites, información y participación ciudadana.</p>
+                    <ul>
+                        <li><a href="#">Portal de datos abiertos</a></li>
+                        <li><a href="#">Declaración de accesibilidad</a></li>
+                        <li><a href="#">Aviso de privacidad integral</a></li>
+                        <li><a href="#">Aviso de privacidad simplificado</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de seguridad</a></li>
+                        <li><a href="#">Mapa de sitio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Denuncia contra servidores públicos</h4>
+                    
+</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

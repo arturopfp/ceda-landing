@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia - El Paint Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .main-header {
+            background: #fff;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: inline-block;
+            margin-right: 30px;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .main-nav {
+            display: none; /* Hidden on mobile by default */
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #0066cc;
+        }
+
+        .nav-cta-button {
+            display: none; /* Hidden by default */
+        }
+
+        .main-nav a.btn-primary {
+            color: #fff;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .mobile-menu-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: #000;
+        }
+
+        .mobile-header-right {
+            display: none; /* Hidden on desktop */
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-header-right .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #3a6186 0%, #89253e 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 3px solid #0066cc;
+            color: #fff;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        .hero .btn-primary {
+            background: #fff;
+            color: #0066cc;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #0066cc;
+            border: 2px solid #0066cc;
+        }
+
+        .btn-secondary:hover {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        /* --- ESTILOS PARA NUEVAS SECCIONES --- */
+        .section {
+            padding: 60px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Story Intro Section */
+        .story-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .story-intro-image {
+            width: 100%;
+            height: 400px;
+            background: #f0f0f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+
+        .story-intro-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .story-intro-text p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: #f8f9fa;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #0066cc;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid #0066cc;
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+
+        .timeline-item.left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid #e0e0e0;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #e0e0e0;
+        }
+
+        .timeline-item.right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid #e0e0e0;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #e0e0e0 transparent transparent;
+        }
+
+        .timeline-item.right::after { left: -8px; }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .timeline-content h3 { font-size: 1.5rem; margin-bottom: 10px; color: #0066cc; }
+        .timeline-content p { color: #555; }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+
+        .team-member h3 { font-size: 1.2rem; margin-bottom: 5px; }
+        .team-member p { color: #555; font-style: italic; }
+
+        /* CTA Section */
+        .cta-section {
+            background: #f2f3f5;
+            text-align: center;
+        }
+
+        .cta-section h2 { font-size: 1.8rem; margin-bottom: 15px; }
+        .cta-section p { font-size: 1.1rem; color: #555; max-width: 600px; margin: 0 auto 30px auto; }
+
+        /* --- INICIA ZONA DE CÓDIGO RESPONSIVE --- */
+        @media (max-width: 920px) {
+            .main-nav { display: none; position: absolute; top: 81px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+            .main-nav.is-open { display: block; }
+            .mobile-header-right { display: flex; }
+            .main-nav ul { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .nav-cta-button { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1.1rem; }
+            .section-header h2 { font-size: 1.8rem; }
+
+            .story-intro { grid-template-columns: 1fr; }
+            .story-intro-image { order: -1; height: 300px; }
+
+            .timeline::after { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 60px; padding-right: 15px; }
+            .timeline-item.left, .timeline-item.right { left: 0%; }
+            .timeline-item.left::before, .timeline-item.right::before { left: 45px; border: medium solid #e0e0e0; border-width: 10px 10px 10px 0; border-color: transparent #e0e0e0 transparent transparent; }
+            .timeline-item.left::after, .timeline-item.right::after { left: 10px; }
+        }
+
+        @media (min-width: 921px) {
+            .main-nav { display: flex; }
+            .nav-cta-button { display: inline-block; }
+            .mobile-menu-toggle { display: none; }
+            .mobile-header-right .btn-primary { display: none; }
+        }
+        /* --- TERMINA ZONA DE CÓDIGO RESPONSIVE --- */
+
+        html { scroll-behavior: smooth; }
+        .btn:focus { outline: 3px solid #0066cc; outline-offset: 2px; }
+        
+        /* Footer Styles */
+        .custom-footer, .footer-column ul li a { color: #ffffff; }
+        .custom-footer { background-color: #1e293b; padding: 60px 40px 20px; font-family: sans-serif; }
+        .footer-main-content { display: flex; justify-content: space-between; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-column { flex: 1; min-width: 200px; padding: 0 15px; }
+        .footer-logo { border: 2px solid #ffffff; padding: 20px; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 1.5em; letter-spacing: 2px; line-height: 1.2; }
+        .footer-social-icons { margin-top: 20px; display: flex; gap: 10px; }
+        .footer-social-icons a { display: inline-block; width: 30px; height: 30px; background-color: #4a4a8a; border-radius: 3px; }
+        .footer-column h6 { font-size: 16px; font-weight: bold; margin-bottom: 20px; text-transform: capitalize; }
+        .footer-column ul { list-style: none; padding: 0; margin: 0; }
+        .footer-column ul li { margin-bottom: 12px; }
+        .footer-column ul li a { text-decoration: none; transition: color 0.3s ease; }
+        .footer-column ul li a:hover { color: #f59e0b; }
+        .footer-bottom { text-align: center; font-size: 14px; color: #dddddd; }
+        .footer-bottom p { margin: 5px 0; }
+
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="home-landing-page-prototype.html" class="logo-link">
+                <img src="https://staging-a676-acrilicamexicana.wpcomstaging.com/wp-content/uploads/2021/09/LOGOTIPO_-ORIGINAL_EL-PAINT-LAB-84x84.jpg" alt="El Paint Lab Logo" class="logo">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="colaboraciones-artistas.html">Artistas / Colaboraciones</a></li>
+                    <li><a href="#">Tienda Online</a></li>
+                    <li><a href="comunidad-de-arte.html">Comunidad de Arte</a></li>
+                    <li><a href="#">Cómo funciona</a></li>
+                    <li><a href="nuestra-historia.html" class="active">Nuestra Historia</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#" class="btn btn-primary nav-cta-button">Comprar Ahora</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-header-right">
+                <a href="#" class="btn btn-primary" onclick="handleCTA(event, 'Comprar ahora')">Comprar Ahora</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+                    <svg class="ast-mobile-svg ast-menu-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M3 13h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 7h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 19h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Nuestra Historia</h1>
+                <p>De un pequeño taller a un laboratorio de color para artistas de todo México.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="story-intro">
+                <div class="story-intro-text">
+                    <h2>La Pasión por el Color Hecho en México</h2>
+                    <p>El Paint Lab nació de una necesidad simple: crear pinturas acrílicas de calidad profesional, accesibles y hechas en México. Frustrados por la falta de opciones locales que cumplieran con los estándares de artistas exigentes, decidimos tomar el asunto en nuestras propias manos. Empezamos en un pequeño taller, investigando pigmentos, experimentando con medios y soñando con una paleta de colores que reflejara la riqueza de nuestro país.</p>
+                </div>
+                <div class="story-intro-image">
+                    Imagen del taller original o fundador
+                </div>
+            </div>
+        </section>
+
+        <section class="section timeline-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Un Viaje a Través del Tiempo</h2>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>2018: La Semilla</h3>
+                            <p>La idea de El Paint Lab germina. Comienzan las primeras investigaciones sobre pigmentos y formulaciones acrílicas.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>2020: El Lanzamiento</h3>
+                            <p>Abrimos oficialmente nuestro laboratorio y lanzamos la primera línea de pigmentos líquidos y medios acrílicos al público.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>2022: Crecimiento y Comunidad</h3>
+                            <p>Expandimos nuestra gama de productos y comenzamos las primeras colaboraciones con artistas locales, fortaleciendo la comunidad.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>2024: Innovación Sostenible</h3>
+                            <p>Introducimos envases recargables y optimizamos nuestros procesos para ser más amigables con el medio ambiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Conoce al Equipo</h2>
+                    <p>Las mentes y manos detrás de cada color.</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">Foto</div>
+                        <h3>Nombre Apellido</h3>
+                        <p>Fundador y Químico</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">Foto</div>
+                        <h3>Nombre Apellido</h3>
+                        <p>Directora de Arte</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">Foto</div>
+                        <h3>Nombre Apellido</h3>
+                        <p>Logística y Operaciones</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section cta-section">
+            <div class="container">
+                <h2>Nuestra Misión</h2>
+                <p>Empoderar a los artistas de México con materiales de la más alta calidad, fomentando la experimentación, la sostenibilidad y el crecimiento de nuestra comunidad creativa. Creemos que el arte es un motor de cambio y queremos ser el combustible que lo impulse.</p>
+                <a href="#" class="btn btn-primary" onclick="handleCTA(event, 'Ver Productos')">Ver Productos</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-main-content">
+            <div class="footer-column">
+                <div class="footer-logo">EL<br>PAINT<br>LAB</div>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Facebook"></a>
+                    <a href="#" aria-label="Twitter"></a>
+                    <a href="#" aria-label="Instagram"></a>
+                </div>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Navegación</h6>
+                <ul>
+                    <li><a href="usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="colaboraciones-artistas.html">Artistas/Colaboraciones</a></li>
+                    <li><a href="#">Tienda Online</a></li>
+                    <li><a href="comunidad-de-arte.html">Comunidad de Arte</a></li>
+                    <li><a href="nuestra-historia.html">Nuestra Historia</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Tienda</h6>
+                <ul>
+                    <li><a href="#">Pigmentos Fríos</a></li>
+                    <li><a href="#">Pigmentos Cálidos</a></li>
+                    <li><a href="#">Medios Acrílicos</a></li>
+                    <li><a href="#">Kits Completos</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Soporte</h6>
+                <ul>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Envíos y Devoluciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>© 2025 El Paint Lab. Todos los derechos reservados.</p>
+            <p>Hecho con ❤️ para artistas en México</p>
+        </div>
+    </footer>
+
+    <script>
+        // CTA Click Handler
+        function handleCTA(event, ctaName) {
+            event.preventDefault();
+            console.log('CTA Clicked:', ctaName);
+            // alert('Wireframe: ' + ctaName + ' clicked');
+        }
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('is-open');
+                const isExpanded = mainNav.classList.contains('is-open');
+                menuToggle.setAttribute('aria-expanded', isExpanded);
+            });
+        }
+    </script>
+</body>
+</html>

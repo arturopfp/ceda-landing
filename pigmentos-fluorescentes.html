@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pigmentos Fluorescentes - El Paint Lab</title>
+    <meta name="description" content="Pigmentos fluorescentes de alta luminiscencia para instalaciones inmersivas, señalética y colecciones audaces.">
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #7c3aed;
+            --accent-color: #f59e0b;
+            --dark-color: #1e293b;
+            --text-color: #111827;
+            --muted-color: #6b7280;
+            --light-color: #f8fafc;
+            --card-border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* Header */
+        .main-header {
+            background: #fff;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: inline-block;
+            margin-right: 30px;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .main-nav {
+            display: none;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-cta-button {
+            display: none;
+        }
+
+        .main-nav a.btn-primary {
+            color: #fff;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .mobile-menu-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: #000;
+        }
+
+        .mobile-header-right {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-header-right .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Global UI Elements */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #22d3ee 0%, #f97316 40%, #d946ef 80%, #7c3aed 100%);
+            color: #fff;
+            padding: 90px 0 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.35), transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 12px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--dark-color);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 28px;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .hero-list {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .hero-list li {
+            padding-left: 28px;
+            position: relative;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .hero-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--dark-color);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-card {
+            max-width: 380px;
+            background: rgba(15, 23, 42, 0.48);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .hero-card figure {
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 18px;
+        }
+
+        .hero-card .image-placeholder {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .hero-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .hero-card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 18px;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background: #f1f5f9;
+            padding: 16px 0;
+        }
+
+        .breadcrumbs nav {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+        }
+
+        .breadcrumbs a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumbs span {
+            color: var(--muted-color);
+        }
+
+        /* Product Highlights */
+        .section-intro {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 40px;
+        }
+
+        .section-intro span {
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+        }
+
+        .section-intro h2 {
+            font-size: 2rem;
+            margin: 6px 0 12px;
+            color: var(--dark-color);
+        }
+
+        .section-intro p {
+            color: var(--muted-color);
+            font-size: 1rem;
+        }
+
+        .product-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        /* Product carousel (infinite) */
+        .product-carousel {
+            position: relative;
+        }
+        .product-viewport {
+            overflow: hidden;
+        }
+        .product-track {
+            --product-gap: 24px;
+            display: flex;
+            gap: var(--product-gap);
+            transition: transform 0.4s ease;
+            will-change: transform;
+        }
+        .product-slide {
+            flex: 0 0 calc((100% - (var(--product-gap) * 3)) / 4);
+        }
+        .product-controls {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 18px;
+            margin: 32px 0 24px;
+        }
+        .product-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: #1e293b;
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+        .product-btn:hover { transform: translateY(-2px); background: #111827; }
+        .product-btn--primary {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.12);
+        }
+        .product-indicator {
+            color: var(--muted-color);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .product-slide { flex: 0 0 calc((100% - var(--product-gap)) / 2); }
+        }
+        @media (max-width: 768px) {
+            .product-controls { margin: 16px 0 20px; justify-content: center; }
+            .product-slide { flex: 0 0 100%; }
+        }
+
+        .product-card {
+            background: var(--light-color);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(56,189,248,0.25);
+            border-color: rgba(250,204,21,0.6);
+        }
+
+        .product-card figure {
+            width: 100%;
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .product-card .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+
+        .product-card p {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(250,204,21,0.3);
+            color: #fde047;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .card-link {
+            font-weight: 600;
+            color: #38bdf8;
+        }
+
+        /* Slider */
+        .slider-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            --slider-gap: 24px;
+            display: flex;
+            gap: var(--slider-gap);
+            transition: transform 0.4s ease;
+        }
+
+        .slider-card {
+            flex: 0 0 100%;
+            background: var(--light-color);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            color: var(--text-color);
+        }
+
+        .slider-card figure {
+            height: 220px;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .slider-card .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .slider-card h3 {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+
+        .slider-card p {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+        }
+
+        .slider-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .slider-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--dark-color);
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .slider-button:hover:not([disabled]) {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .slider-button[disabled] {
+            background: rgba(15, 23, 42, 0.35);
+            cursor: not-allowed;
+        }
+
+        .slider-indicator {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+        }
+
+        /* Info sections */
+        .info-section {
+            padding: 80px 0;
+        }
+
+        .info-split {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 48px;
+            align-items: center;
+        }
+
+        .info-split figure {
+            border-radius: 16px;
+            overflow: hidden;
+            height: 320px;
+        }
+
+        .info-split .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .info-split h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: var(--dark-color);
+        }
+
+        .info-split p {
+            color: var(--muted-color);
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+        }
+
+        .feature-list li {
+            padding: 16px;
+            background: var(--light-color);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            position: relative;
+            padding-left: 48px;
+        }
+
+        .feature-list li::before {
+            content: '✔';
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        .benefits-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .benefit-card {
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            background: #fff;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--dark-color);
+        }
+
+        .benefit-card p {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(56,189,248,0.95), rgba(249,115,22,0.9));
+            color: #fff;
+            padding: 20px 0 30px;
+            text-align: center;
+            border-radius: 24px;
+            margin: 60px auto 80px;
+            max-width: 1100px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            margin-bottom: 28px;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        /* Accessibility */
+        .btn:focus-visible,
+        .slider-button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Footer Styles */
+        .custom-footer,
+        .footer-column ul li a {
+            color: #ffffff;
+        }
+
+        .custom-footer {
+            background-color: #1e293b;
+            padding: 60px 40px 20px;
+            font-family: sans-serif;
+        }
+
+        .footer-main-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            padding: 0 15px;
+        }
+
+        .footer-logo {
+            border: 2px solid #ffffff;
+            padding: 20px;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .footer-social-icons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social-icons a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #4a4a8a;
+            border-radius: 3px;
+        }
+
+        .footer-column h6 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 14px;
+            color: #dddddd;
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                margin: 0 auto;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav.is-open {
+                display: block;
+                position: absolute;
+                top: 80px;
+                right: 20px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-header-right {
+                display: flex;
+            }
+
+            .hero {
+                padding: 70px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+
+            .slider-card {
+                flex: 0 0 calc(100% - 24px);
+            }
+
+            .info-split {
+                grid-template-columns: 1fr;
+            }
+
+            .info-split figure {
+                order: -1;
+                height: 260px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .main-nav {
+                display: block;
+            }
+
+            .nav-cta-button {
+                display: inline-flex;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .slider-card { flex: 0 0 calc((100% - var(--slider-gap)) / 2); }
+        }
+        @media (min-width: 1100px) {
+            .slider-card { flex: 0 0 calc((100% - (var(--slider-gap) * 2)) / 3); }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="../../../home-landing-page-prototype.html" class="logo-link">
+                <img src="https://staging-a676-acrilicamexicana.wpcomstaging.com/wp-content/uploads/2021/09/LOGOTIPO_-ORIGINAL_EL-PAINT-LAB-84x84.jpg" alt="El Paint Lab Logo" class="logo">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="../../../usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="../../../colaboraciones-artistas.html">Artistas / Colaboraciones</a></li>
+                    <li><a href="../../../tienda-online.html" class="active">Tienda Online</a></li>
+                    <li><a href="../../../comunidad-de-arte.html">Comunidad de Arte</a></li>
+                    <li><a href="../../../contacto.html">Contacto</a></li>
+                    <li><a href="#" class="btn btn-primary nav-cta-button" onclick="handleCTA(event, 'Nav Comprar Pigmentos Fluorescentes')">Comprar Ahora</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-header-right">
+                <a href="#" class="btn btn-primary" onclick="handleCTA(event, 'Mobile Comprar Pigmentos Fluorescentes')">Comprar Ahora</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+                    <svg class="ast-mobile-svg ast-menu-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M3 13h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 7h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 19h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-content">
+                <div>
+                    <div class="hero-eyebrow">Impacto instantáneo</div>
+                    <h1>Pigmentos fluorescentes para proyectos que brillan</h1>
+                    <p>Elige colores que explotan de intensidad bajo luz natural o UV. Diseñados para instalaciones inmersivas, señalética creativa y colecciones audaces.</p>
+                    <div class="hero-actions">
+                        <a href="#paleta-fluor" class="btn btn-primary" onclick="handleCTA(event, 'CTA Hero Paleta Fluor')">Ver paleta fluorescente</a>
+                        <a href="../../aditivos/aditivos.html" class="btn btn-secondary" onclick="handleCTA(event, 'Hero Ver Aditivos Fluor')">Asegurar protección UV</a>
+                    </div>
+                    <ul class="hero-list">
+                        <li>Encapsulado especial para máxima luminiscencia y durabilidad.</li>
+                        <li>Compatible con medios fluidos, brillantes y selladores transparentes.</li>
+                        <li>Incluye recomendaciones de seguridad para aplicaciones masivas.</li>
+                    </ul>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card">
+                        <figure>
+                            <div class="image-placeholder" aria-hidden="true">image</div>
+                        </figure>
+                        <h3>Fluor Neon Lima</h3>
+                        <p>Luz vibrante que domina bajo UV y se mantiene intensa sobre cualquier superficie.</p>
+                        <a href="#slider-fluor" class="card-link" onclick="handleCTA(event, 'Hero Fluor Lima')">Ver ficha</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="breadcrumbs" aria-label="Breadcrumb">
+            <div class="container">
+                <nav>
+                    <a href="../../../home-landing-page-prototype.html">Inicio</a>
+                    <span> / </span>
+                    <a href="../../../tienda-online.html">Tienda online</a>
+                    <span> / </span>
+                    <a href="../pigmentos.html">Pigmentos</a>
+                    <span> / </span>
+                    <span>Fluorescentes</span>
+                </nav>
+            </div>
+        </section>
+
+        <section class="category-section" id="paleta-fluor">
+            <div class="container">
+                <div class="section-intro">
+                    <span>Fluor destacado</span>
+                    <h2>Colores que brillan con energía propia</h2>
+                    <p>Paleta curada para obras inmersivas, experiencias digitales y branding que necesita destacar.</p>
+                </div>
+                <div class="product-carousel" id="product-carousel">
+                    <div class="product-controls">
+                        <button class="product-btn product-btn--primary" data-product-prev aria-label="Ver productos anteriores">&#8592;</button>
+                        <button class="product-btn" data-product-next aria-label="Ver productos siguientes">&#8594;</button>
+                        <span class="product-indicator" data-product-indicator>1 / 4</span>
+                    </div>
+                    <div class="product-viewport">
+                        <div class="product-track" data-product-track>
+                        <div class="product-slide">
+                            <a class="product-card" href="#slider-fluor" onclick="handleCTA(event, 'Producto Fluor Lima')">
+                                <figure>
+                                    <div class="image-placeholder" aria-hidden="true">image</div>
+                                </figure>
+                                <div>
+                                    <h3>Fluor Neon Lima</h3>
+                                    <p>Máxima luminiscencia con encapsulado que evita amarillamiento.</p>
+                                </div>
+                                <div class="product-meta">
+                                    <span>$520 MXN</span>
+                                    <span class="badge">Top inmersivo</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="product-slide">
+                            <a class="product-card" href="#slider-fluor" onclick="handleCTA(event, 'Producto Rosa Electrica')">
+                                <figure>
+                                    <div class="image-placeholder" aria-hidden="true">image</div>
+                                </figure>
+                                <div>
+                                    <h3>Rosa Eléctrica Pulse</h3>
+                                    <p>Rosa vibrante con brillo extremo para lettering y piezas pop.</p>
+                                </div>
+                                <div class="product-meta">
+                                    <span>$510 MXN</span>
+                                    <span class="badge">Edición limitada</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="product-slide">
+                            <a class="product-card" href="#slider-fluor" onclick="handleCTA(event, 'Producto Naranja Reactor')">
+                                <figure>
+                                    <div class="image-placeholder" aria-hidden="true">image</div>
+                                </figure>
+                                <div>
+                                    <h3>Naranja Reactor</h3>
+                                    <p>Señalética y experiencias interactivas que requieren atención inmediata.</p>
+                                </div>
+                                <div class="product-meta">
+                                    <span>$500 MXN</span>
+                                    <span class="badge">Señalética</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="product-slide">
+                            <a class="product-card" href="#slider-fluor" onclick="handleCTA(event, 'Producto Violeta Ultra')">
+                                <figure>
+                                    <div class="image-placeholder" aria-hidden="true">image</div>
+                                </figure>
+                                <div>
+                                    <h3>Violeta Ultra Spectrum</h3>
+                                    <p>Efecto neón con profundidad ideal para mapping y murales UV.</p>
+                                </div>
+                                <div class="product-meta">
+                                    <span>$530 MXN</span>
+                                    <span class="badge">UV Ready</span>
+                                </div>
+                            </a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slider-section" id="slider-fluor" aria-label="Pigmentos fluorescentes destacados">
+            <div class="container">
+                <div class="slider-actions">
+                    <div>
+                        <h2 style="margin-bottom: 4px;">Cómo lograr el máximo brillo</h2>
+                        <p style="color: var(--muted-color); margin: 0;">Combinaciones, selladores y cuidados para que tus fluorescentes brillen siempre.</p>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-button" data-slider-prev aria-label="Ver fluorescentes anteriores">&#8592;</button>
+                        <button class="slider-button" data-slider-next aria-label="Ver fluorescentes siguientes">&#8594;</button>
+                        <span class="slider-indicator" data-slider-indicator>1 / 4</span>
+                    </div>
+                </div>
+                <div class="slider-wrapper" data-slider>
+                    <div class="slider-track">
+                        <article class="slider-card">
+                            <figure>
+                                <div class="image-placeholder" aria-hidden="true">image</div>
+                            </figure>
+                            <h3>Fluor Neon Lima</h3>
+                            <p>Brilla con intensidad en club, retail y arte interactivo. Puede mezclarse con medios transparentes sin perder fuerza.</p>
+                            <ul class="feature-list">
+                                <li>Recomendado con Shield UV Coat para exterior.</li>
+                                <li>Incluye guía de seguridad y manipulación.</li>
+                                <li>Disponible en kits con SlowDry para vertidos.</li>
+                            </ul>
+                            <a href="#" class="card-link" onclick="handleCTA(event, 'Slider Fluor Lima')">Agregar al carrito</a>
+                        </article>
+                        <article class="slider-card">
+                            <figure>
+                                <div class="image-placeholder" aria-hidden="true">image</div>
+                            </figure>
+                            <h3>Rosa Eléctrica Pulse</h3>
+                            <p>Color protagonista para lettering y piezas editoriales que requieren punch visual.</p>
+                            <ul class="feature-list">
+                                <li>Combina con Crystal Gloss Gel para efecto esmalte.</li>
+                                <li>Encapsulado anti decoloración por luz natural.</li>
+                                <li>Incluye carta de contraste con neutros.</li>
+                            </ul>
+                            <a href="#" class="card-link" onclick="handleCTA(event, 'Slider Rosa Pulse')">Solicitar demo</a>
+                        </article>
+                        <article class="slider-card">
+                            <figure>
+                                <div class="image-placeholder" aria-hidden="true">image</div>
+                            </figure>
+                            <h3>Naranja Reactor</h3>
+                            <p>Impacto inmediato para señalética, eventos y activaciones nocturnas.</p>
+                            <ul class="feature-list">
+                                <li>Resalta bajo luz negra y cálida por igual.</li>
+                                <li>Recomendado con Anti Bubble Clear para vertidos.</li>
+                                <li>Rendimiento superior a 10 m² por kilo.</li>
+                            </ul>
+                            <a href="#" class="card-link" onclick="handleCTA(event, 'Slider Naranja Reactor')">Reservar lote</a>
+                        </article>
+                        <article class="slider-card">
+                            <figure>
+                                <div class="image-placeholder" aria-hidden="true">image</div>
+                            </figure>
+                            <h3>Violeta Ultra Spectrum</h3>
+                            <p>Contraste único con un brillo profundo, ideal para mapping y murales UV.</p>
+                            <ul class="feature-list">
+                                <li>Funciona excelente con medios brillantes y texturizantes.</li>
+                                <li>Incluye guías de mezcla con Rosa y Lima.</li>
+                                <li>Se entrega en envases opacos para conservar intensidad.</li>
+                            </ul>
+                            <a href="#" class="card-link" onclick="handleCTA(event, 'Slider Violeta Ultra')">Añadir a wishlist</a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="container info-split">
+                <div>
+                    <h2>Asegura el brillo en cada montaje</h2>
+                    <p>Te guiamos para elegir medios, selladores y cuidados necesarios para que tus fluorescentes mantengan intensidad a largo plazo.</p>
+                    <ul class="feature-list">
+                        <li>Protocolo de aplicación para murales, textil y señalética.</li>
+                        <li>Recomendaciones de iluminación UV para máxima luminiscencia.</li>
+                        <li>Soporte en línea para calibrar mezclas en tiempo real.</li>
+                    </ul>
+                </div>
+                <figure>
+                    <div class="image-placeholder" aria-hidden="true">image</div>
+                </figure>
+            </div>
+        </section>
+
+        <section class="info-section" style="background: var(--light-color);">
+            <div class="container">
+                <div class="section-intro" style="margin-bottom: 32px;">
+                    <span>Aplicaciones destacadas</span>
+                    <h2>Ideal para experiencias inmersivas y branding disruptivo</h2>
+                    <p>Crea universos visuales que no pasan desapercibidos, desde galerías hasta festivales.</p>
+                </div>
+                <div class="benefits-grid">
+                    <article class="benefit-card">
+                        <h3>Instalaciones artísticas</h3>
+                        <p>Colores que reaccionan con luz negra y crean atmósferas sensoriales únicas.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <h3>Retail y activaciones</h3>
+                        <p>Atrae la mirada a productos, displays y espacios conceptuales.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <h3>Moda y textil</h3>
+                        <p>La fluorescencia permanece vibrante cuando se utiliza con nuestros medios textiles.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Haz brillar tu próximo lanzamiento</h2>
+                <p>Agenda una sesión de mezcla para definir pigmentos, medios y selladores ideales según tu proyecto.</p>
+                <div class="hero-actions" style="justify-content: center;">
+                    <a href="#paleta-fluor" class="btn btn-primary" onclick="handleCTA(event, 'CTA Final Seleccionar Fluor')">Seleccionar fluorescentes</a>
+                    <a href="../../medios-acrilicos/medios-acrilicos.html" class="btn btn-secondary" onclick="handleCTA(event, 'CTA Final Ver Medios Fluor')">Ver medios compatibles</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-main-content">
+            <div class="footer-column">
+                <div class="footer-logo">EL<br>PAINT<br>LAB</div>
+                <p>Acompañamos a artistas y equipos creativos a formular colores memorables.</p>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Instagram"></a>
+                    <a href="#" aria-label="Behance"></a>
+                    <a href="#" aria-label="YouTube"></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h6>Navegación</h6>
+                <ul>
+                    <li><a href="../../../usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="../../../colaboraciones-artistas.html">Artistas / Colaboraciones</a></li>
+                    <li><a href="../../../tienda-online.html">Tienda Online</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h6>Nosotros</h6>
+                <ul>
+                    <li><a href="../../../nuestra-historia.html">Nuestra Historia</a></li>
+                    <li><a href="../../../comunidad-de-arte.html">Comunidad de Arte</a></li>
+                    <li><a href="../../../colaboraciones-artistas-patrocinios.html">Patrocinios</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h6>Tienda</h6>
+                <ul>
+                    <li><a href="../fluorescentes/pigmentos-fluorescentes.html">Pigmentos Fluorescentes</a></li>
+                    <li><a href="../frios/pigmentos-frios.html">Pigmentos Fríos</a></li>
+                    <li><a href="../calidos/pigmentos-calidos.html">Pigmentos Cálidos</a></li>
+                    <li><a href="../../aditivos/aditivos.html">Aditivos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h6>Soporte</h6>
+                <ul>
+                    <li><a href="../../../contacto.html">Contacto</a></li>
+                    <li><a href="#">Envíos y Devoluciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 El Paint Lab. Todos los derechos reservados.</p>
+            <p>Hecho con ❤️ para artistas en México</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleCTA(event, ctaName) {
+            if (event && typeof event.preventDefault === 'function') {
+                const target = event.currentTarget || event.target;
+                const href = target && target.getAttribute ? target.getAttribute('href') : null;
+                if (!href || href === '#') {
+                    event.preventDefault();
+                }
+            }
+            console.log('CTA Clicked:', ctaName);
+        }
+
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('is-open');
+                const isExpanded = mainNav.classList.contains('is-open');
+                menuToggle.setAttribute('aria-expanded', String(isExpanded));
+            });
+        }
+
+        function initSliders() {
+            const sliders = document.querySelectorAll('[data-slider]');
+            sliders.forEach((wrapper) => {
+                const track = wrapper.querySelector('.slider-track');
+                const slides = Array.from(track.children);
+                const nextBtn = wrapper.parentElement.querySelector('[data-slider-next]');
+                const prevBtn = wrapper.parentElement.querySelector('[data-slider-prev]');
+                const indicator = wrapper.parentElement.querySelector('[data-slider-indicator]');
+
+                if (!track || slides.length === 0 || !nextBtn || !prevBtn) {
+                    return;
+                }
+
+                let currentIndex = 0;
+                let slideWidth = 0;
+                let gap = 0;
+                let slidesPerView = 1;
+
+                const updateMetrics = () => {
+                    const trackStyles = window.getComputedStyle(track);
+                    const gapValue = trackStyles.columnGap || trackStyles.gap || '0';
+                    gap = parseFloat(gapValue);
+                    slideWidth = slides[0].getBoundingClientRect().width + gap;
+
+                    const wrapperWidth = wrapper.getBoundingClientRect().width;
+                    slidesPerView = Math.max(1, Math.round(wrapperWidth / slideWidth));
+                    const maxIndex = Math.max(0, slides.length - slidesPerView);
+                    if (currentIndex > maxIndex) {
+                        currentIndex = maxIndex;
+                    }
+                    updateSlider();
+                };
+
+                const updateSlider = () => {
+                    const maxIndex = Math.max(0, slides.length - slidesPerView);
+                    const offset = currentIndex * slideWidth;
+                    track.style.transform = `translateX(-${offset}px)`;
+                    prevBtn.disabled = currentIndex === 0;
+                    nextBtn.disabled = currentIndex >= maxIndex;
+                    if (indicator) {
+                        indicator.textContent = `${Math.min(currentIndex + 1, slides.length)} / ${slides.length}`;
+                    }
+                };
+
+                nextBtn.addEventListener('click', () => {
+                    const maxIndex = Math.max(0, slides.length - slidesPerView);
+                    currentIndex = Math.min(currentIndex + 1, maxIndex);
+                    updateSlider();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = Math.max(currentIndex - 1, 0);
+                    updateSlider();
+                });
+
+                window.addEventListener('resize', () => {
+                    updateMetrics();
+                });
+
+                updateMetrics();
+            });
+        }
+
+        // Infinite Product Carousel
+        function initProductCarousel() {
+            const carousel = document.getElementById('product-carousel');
+            if (!carousel) return;
+            const track = carousel.querySelector('[data-product-track]');
+            const slides = Array.from(track.children);
+            const prev = carousel.querySelector('[data-product-prev]');
+            const next = carousel.querySelector('[data-product-next]');
+            const indicator = carousel.querySelector('[data-product-indicator]');
+            if (!track || slides.length === 0 || !prev || !next) return;
+
+            // Clone head/tail for seamless loop
+            const head = slides.slice(0, 2).map(s => s.cloneNode(true));
+            const tail = slides.slice(-2).map(s => s.cloneNode(true));
+            tail.forEach(n => track.insertBefore(n, track.firstChild));
+            head.forEach(n => track.appendChild(n));
+
+            let current = 0; // index within original set
+            let slideW = 0;
+            let gap = 24;
+
+            const totalOriginal = slides.length;
+
+            const compute = () => {
+                const first = track.children[0];
+                const styles = window.getComputedStyle(track);
+                const gapValue = styles.columnGap || styles.gap || '24';
+                gap = parseFloat(gapValue) || 24;
+                slideW = first.getBoundingClientRect().width + gap;
+                setImmediateTranslate();
+                updateIndicator();
+            };
+
+            const setImmediateTranslate = () => {
+                const offset = (current + 2) * slideW; // account for two prepended clones
+                track.style.transition = 'none';
+                track.style.transform = `translateX(-${offset}px)`;
+                requestAnimationFrame(() => { track.style.transition = 'transform 0.4s ease'; });
+            };
+
+            const updateIndicator = () => {
+                if (indicator) {
+                    indicator.textContent = `${current + 1} / ${totalOriginal}`;
+                }
+            };
+
+            const move = (dir) => {
+                current = (current + dir + totalOriginal) % totalOriginal;
+                const offset = (current + 2) * slideW;
+                track.style.transform = `translateX(-${offset}px)`;
+                updateIndicator();
+            };
+
+            next.addEventListener('click', () => move(1));
+            prev.addEventListener('click', () => move(-1));
+            window.addEventListener('resize', compute);
+            compute();
+        }
+
+document.addEventListener('DOMContentLoaded', () => { initSliders(); initProductCarousel(); });
+    </script>
+</body>
+</html>

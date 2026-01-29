@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medios Acrílicos - El Paint Lab</title>
+    <meta name="description" content="Controla viscosidad, brillo y secado con medios acrílicos profesionales de El Paint Lab. Descubre formulaciones diseñadas para tus pigmentos.">
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #7c3aed;
+            --accent-color: #f59e0b;
+            --dark-color: #1e293b;
+            --text-color: #111827;
+            --muted-color: #6b7280;
+            --light-color: #f8fafc;
+            --card-border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* Header */
+        .main-header {
+            background: #fff;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: inline-block;
+            margin-right: 30px;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .main-nav {
+            display: none;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-cta-button {
+            display: none;
+        }
+
+        .main-nav a.btn-primary {
+            color: #fff;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .mobile-menu-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: #000;
+        }
+
+        .mobile-header-right {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-header-right .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Global UI Elements */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f766e 0%, #22d3ee 55%, #6366f1 100%);
+            color: #fff;
+            padding: 90px 0 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.22), transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 12px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-color);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 28px;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .hero-list {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .hero-list li {
+            padding-left: 28px;
+            position: relative;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .hero-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-color);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-card {
+            max-width: 380px;
+            background: rgba(15, 23, 42, 0.48);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .hero-card figure {
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 18px;
+        }
+
+        .hero-card .image-placeholder {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .hero-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .hero-card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 18px;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background: #f1f5f9;
+            padding: 16px 0;
+        }
+
+        .breadcrumbs nav {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+        }
+
+        .breadcrumbs a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumbs span {
+            color: var(--muted-color);
+        }
+
+        /* Product Highlights */
+        .section-intro {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 40px;
+        }
+
+        .section-intro span {
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+        }
+
+        .section-intro h2 {
+            font-size: 2rem;
+            margin: 6px 0 12px;
+            color: var(--dark-color);
+        }
+
+        .section-intro p {
+            color: var(--muted-color);
+            font-size: 1rem;
+        }
+
+        .product-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .product-carousel {
+            position: relative;
+        }
+
+        .product-viewport {
+            overflow: hidden;
+        }
+
+        .product-track {
+            --product-gap: 24px;
+            display: flex;
+            gap: var(--product-gap);
+            transition: transform 0.4s ease;
+            will-change: transform;
+        }
+
+        .product-slide {
+            flex: 0 0 calc((100% - (var(--product-gap) * 3)) / 4);
+        }
+
+        .product-controls {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 18px;
+            margin: 32px 0 24px;
+        }
+
+        .product-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: #1e293b;
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .product-btn:hover {
+            transform: translateY(-2px);
+            background: #111827;
+        }
+
+        .product-btn--primary {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.12);
+        }
+
+        .product-indicator {
+            color: var(--muted-color);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .product-card {
+            background: var(--light-color);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(37, 99, 235, 0.15);
+            border-color: rgba(37, 99, 235, 0.35);
+        }
+
+        .product-card figure {
+            width: 100%;
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .product-card .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+
+        .product-card p {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .card-link {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Slider */
+        .slider-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            --slider-gap: 24px;
+            display: flex;
+            gap: var(--slider-gap);
+            transition: transform 0.4s ease;
+        }
+
+        .slider-card {
+            flex: 0 0 100%;
+            background: var(--light-color);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .slider-card figure {
+            height: 220px;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .slider-card .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .slider-card h3 {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+
+        .slider-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .slider-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--dark-color);
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .slider-button:hover:not([disabled]) {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .slider-button[disabled] {
+            background: rgba(15, 23, 42, 0.35);
+            cursor: not-allowed;
+        }
+
+        .slider-indicator {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+        }
+
+        /* Info sections */
+        .info-section {
+            padding: 80px 0;
+        }
+
+        .info-split {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 48px;
+            align-items: center;
+        }
+
+        .info-split figure {
+            border-radius: 16px;
+            overflow: hidden;
+            height: 320px;
+        }
+
+        .info-split .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e5e7eb;
+            color: #374151;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .info-split h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: var(--dark-color);
+        }
+
+        .info-split p {
+            color: var(--muted-color);
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+        }
+
+        .feature-list li {
+            padding: 16px;
+            background: var(--light-color);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            position: relative;
+            padding-left: 48px;
+        }
+
+        .feature-list li::before {
+            content: '✔';
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        .benefits-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .benefit-card {
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            background: #fff;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--dark-color);
+        }
+
+        .benefit-card p {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.92), rgba(99, 102, 241, 0.88));
+            color: #fff;
+            padding: 70px 0;
+            text-align: center;
+            border-radius: 24px;
+            margin: 0 auto 80px;
+            max-width: 1100px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            margin-bottom: 28px;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        /* Accessibility */
+        .btn:focus-visible,
+        .slider-button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Footer Styles */
+        .custom-footer,
+        .footer-column ul li a {
+            color: #ffffff;
+        }
+
+        .custom-footer {
+            background-color: #1e293b;
+            padding: 60px 40px 20px;
+            font-family: sans-serif;
+        }
+
+        .footer-main-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            padding: 0 15px;
+        }
+
+        .footer-logo {
+            border: 2px solid #ffffff;
+            padding: 20px;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .footer-social-icons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social-icons a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #4a4a8a;
+            border-radius: 3px;
+        }
+
+        .footer-column h6 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 14px;
+            color: #dddddd;
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                margin: 0 auto;
+            }
+
+            .product-slide {
+                flex: 0 0 calc((100% - var(--product-gap)) / 2);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav.is-open {
+                display: block;
+                position: absolute;
+                top: 80px;
+                right: 20px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-header-right {
+                display: flex;
+            }
+
+            .hero {
+                padding: 70px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .product-controls {
+                margin: 16px 0 20px;
+                justify-content: center;
+            }
+
+            .product-slide {
+                flex: 0 0 100%;
+            }
+
+            .slider-card {
+                flex: 0 0 100%;
+            }
+
+            .info-split {
+                grid-template-columns: 1fr;
+            }
+
+            .info-split figure {
+                order: -1;
+                height: 260px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .main-nav {
+                display: block;
+            }
+
+            .nav-cta-button {
+                display: inline-flex;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .slider-card {
+                flex: 0 0 calc((100% - var(--slider-gap)) / 2);
+            }
+        }
+
+        @media (min-width: 1100px) {
+            .slider-card {
+                flex: 0 0 calc((100% - (var(--slider-gap) * 2)) / 3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="../../home-landing-page-prototype.html" class="logo-link">
+                <img src="https://staging-a676-acrilicamexicana.wpcomstaging.com/wp-content/uploads/2021/09/LOGOTIPO_-ORIGINAL_EL-PAINT-LAB-84x84.jpg" alt="El Paint Lab Logo" class="logo">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="../../usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="../../colaboraciones-artistas.html">Artistas / Colaboraciones</a></li>
+                    <li><a href="../../tienda-online.html" class="active">Tienda Online</a></li>
+                    <li><a href="../../comunidad-de-arte.html">Comunidad de Arte</a></li>
+                    <li><a href="../../contacto.html">Contacto</a></li>
+                    <li><a href="#" class="btn btn-primary nav-cta-button" onclick="handleCTA(event, 'Nav Comprar Medios')">Comprar Ahora</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-header-right">
+                <a href="#" class="btn btn-primary" onclick="handleCTA(event, 'Mobile Comprar Medios')">Comprar Ahora</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+                    <svg class="ast-mobile-svg ast-menu-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M3 13h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 7h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 19h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-content">
+                <div>
+                    <div class="hero-eyebrow">Control profesional</div>
+                    <h1>Medios acrílicos para modular cada acabado</h1>
+                    <p>Elige formulaciones listas para usar que controlan viscosidad, brillo, secado y transparencia. Diseñadas para trabajar en sinergia con toda nuestra línea de pigmentos.</p>
+                    <div class="hero-actions">
+                        <a href="#medios-destacados" class="btn btn-primary" onclick="handleCTA(event, 'CTA Hero Medios Destacados')">Ver medios destacados</a>
+                        <a href="../aditivos/index.html" class="btn btn-secondary" onclick="handleCTA(event, 'Hero Ver Aditivos')">Complementar con aditivos</a>
+                    </div>
+                    <ul class="hero-list">
+                        <li>Formulaciones testadas con diferentes climas y superficies.</li>
+                        <li>Compatibles con pigmentos en polvo y pasta sin grumos.</li>
+                        <li>Asesoría para ajustar acabado y tiempos de secado.</li>
+                    </ul>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card">
+                        <figure>
+                            <div class="image-placeholder" aria-hidden="true">image</div>
+                        </figure>
+                        <h3>Fluid Control Medium</h3>
+                        <p>Ajusta la fluidez sin sacrificar cobertura. Ideal para técnicas de vertido y lettering con alto detalle.</p>
+                        <a href="#fluid-control" class="card-link" onclick="handleCTA(event, 'Hero Fluid Control')">Ver especificaciones</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="breadcrumbs" aria-label="Breadcrumb">
+            <div class="container">
+                <nav>
+                    <a href="../../home-landing-page-prototype.html">Inicio</a>
+                    <span> / </span>
+                    <a href="../../tienda-online.html">Tienda online</a>
+                    <span> / </span>
+                    <span>Medios acrílicos</span>
+                </nav>
+            </div>
+        </section>
+
+        <section class="category-section" id="medios-destacados">
+            <div class="container">
+                <div class="section-intro">
+                    <span>Medios listos para usar</span>
+                    <h2>Elige la base ideal para tus pigmentos</h2>
+                    <p>Desde bases fluidas para transparencias hasta geles espesos para volumen. Nuestros medios se integran sin complicaciones.</p>
+                </div>
+                <div class="product-carousel" id="product-carousel">
+                    <div class="product-controls">
+                        <button class="product-btn product-btn--primary" data-product-prev aria-label="Ver medios anteriores">&#8592;</button>
+                        <button class="product-btn" data-product-next aria-label="Ver medios siguientes">&#8594;</button>
+                        <span class="product-indicator" data-product-indicator>1 / 4</span>
+                    </div>
+                    <div class="product-viewport">
+                        <div class="product-track" data-product-track>
+                            <div class="product-slide">
+                                <a id="fluid-control" class="product-card" href="#slider-medios" onclick="handleCTA(event, 'Medium Fluid Control')">
+                                    <figure>
+                                        <div class="image-placeholder" aria-hidden="true">image</div>
+                                    </figure>
+                                    <div>
+                                        <h3>Fluid Control Medium</h3>
+                                        <p>Reduce la viscosidad sin perder intensidad ni generar burbujas.</p>
+                                    </div>
+                                    <div class="product-meta">
+                                        <span>$680 MXN</span>
+                                        <span class="badge">Top ventas</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="product-slide">
+                                <a class="product-card" href="#slider-medios" onclick="handleCTA(event, 'Medium Gel Brillante')">
+                                    <figure>
+                                        <div class="image-placeholder" aria-hidden="true">image</div>
+                                    </figure>
+                                    <div>
+                                        <h3>Crystal Gloss Gel</h3>
+                                        <p>Proporciona acabado brillante y profundidad ideal para capas transparentes.</p>
+                                    </div>
+                                    <div class="product-meta">
+                                        <span>$720 MXN</span>
+                                        <span class="badge">Brillo controlado</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="product-slide">
+                                <a class="product-card" href="#slider-medios" onclick="handleCTA(event, 'Medium Mate Suave')">
+                                    <figure>
+                                        <div class="image-placeholder" aria-hidden="true">image</div>
+                                    </figure>
+                                    <div>
+                                        <h3>Soft Matte Base</h3>
+                                        <p>Convierte tus mezclas en acabados suaves y aterciopelados resistentes.</p>
+                                    </div>
+                                    <div class="product-meta">
+                                        <span>$640 MXN</span>
+                                        <span class="badge">Acabado mate</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="product-slide">
+                                <a class="product-card" href="#slider-medios" onclick="handleCTA(event, 'Medium Texturizante')">
+                                    <figure>
+                                        <div class="image-placeholder" aria-hidden="true">image</div>
+                                    </figure>
+                                    <div>
+                                        <h3>Texture Builder</h3>
+                                        <p>Genera volumen y relieve manteniendo la adhesión y flexibilidad.</p>
+                                    </div>
+                                    <div class="product-meta">
+                                        <span>$760 MXN</span>
+                                        <span class="badge">Volumen creativo</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slider-section" id="slider-medios" aria-label="Medios acrílicos en detalle">
+            <div class="container">
+                <div class="slider-actions">
+                    <div>
+                        <h2 style="margin-bottom: 4px;">Selecciona el medio según tu técnica</h2>
+                        <p style="color: var(--muted-color); margin: 0;">Desliza para descubrir las funciones principales y recomendaciones de mezcla.</p>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-button" data-slider-prev aria-label="Ver medios anteriores">
+                            &#8592;
+                        </button>
+                        <button class="slider-button" data-slider-next aria-label="Ver medios siguientes">
+                            &#8594;
+                        </button>
+                        <span class="slider-indicator" data-slider-indicator>1 / 4</span>
+                    </div>
+                </div>
+                <div class="slider-wrapper" data-slider>
+                    <div class="slider-track">
+                        <article class="slider-card">
+                            <figure>
+                                <div class="image-placeholder" aria-hidden="true">image</div>
+                            </figure>
+                            <h3>Fluid Control Medium</h3>
+                            <p>Excelente para técnicas de pouring y lettering. Facilita el flujo y evita grietas al secar.</p>
+                            <ul class="feature-list">
+                                <li>Mezcla recomendada: 1:1 con pigmento para transparencias.</li>
+                                <li>Secado uniforme sin brillo extra.</li>
+                                <li>Ideal para capas superpuestas.</li>
+                            </ul>
+                            <a href="#" class="card-link" onclick="handleCTA(event, 'Slider Medium Fluid Control')">Ordenar ahora</a>
+                        </article>
+                        <article class="slider-card">
+                            <figure>
+                                <div class="image-placeholder" aria-hidden="true">image</div>
+                            </figure>
+                            <h3>Crystal Gloss Gel</h3>
+                            <p>Potencia brillo y profundidad en acabados traslúcidos, perfecto para resaltar pigmentos metálicos.</p>
+                            <ul class="feature-list">
+                                <li>Compatible con pigmentos perlescentes.</li>
+                                <li>Flexibilidad elevada para superficies curvas.</li>
+                                <li>Incluye ficha de mezcla por capas.</li>
+                            </ul>
+                            <a href="#" class="card-link" onclick="handleCTA(event, 'Slider Medium Gloss')">Solicitar muestra</a>
+                        </article>
+                        <article class="slider-card">
+                            <figure>
+                                <div class="image-placeholder" aria-hidden="true">image</div>
+                            </figure>
+                            <h3>Soft Matte Base</h3>
+                            <p>Reduce brillo sin afectar la intensidad cromática, ideal para impresiones artísticas y murales interiores.</p>
+                            <ul class="feature-list">
+                                <li>Aplicación suave sin marcas de brocha.</li>
+                                <li>Resistencia a la abrasión y a la luz.</li>
+                                <li>Compatibilidad con selladores mate.</li>
+                            </ul>
+                            <a href="#" class="card-link" onclick="handleCTA(event, 'Slider Medium Matte')">Reservar lote</a>
+                        </article>
+                        <article class="slider-card">
+                            <figure>
+                                <div class="image-placeholder" aria-hidden="true">image</div>
+                            </figure>
+                            <h3>Texture Builder</h3>
+                            <p>Genera volúmenes consistentes sin agrietar la superficie y mantiene la intensidad del color.</p>
+                            <ul class="feature-list">
+                                <li>Soporte hasta 5 mm de relieve.</li>
+                                <li>Compatible con arenas y agregados.</li>
+                                <li>Secado controlado en 6-8 horas.</li>
+                            </ul>
+                            <a href="#" class="card-link" onclick="handleCTA(event, 'Slider Medium Texture')">Añadir al carrito</a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="container info-split">
+                <div>
+                    <h2>Integra medios que se adaptan a tu ritmo de producción</h2>
+                    <p>Te ayudamos a definir mezclas eficientes para workshops, series limitadas y murales de gran formato. Cada medio se formula con materias primas europeas y se envía listo para mezclar.</p>
+                    <ul class="feature-list">
+                        <li>Compatibilidad garantizada con pigmentos El Paint Lab.</li>
+                        <li>Soporte técnico por videollamada para ajustes de viscosidad.</li>
+                        <li>Fichas de seguridad y almacenamiento incluidas.</li>
+                    </ul>
+                </div>
+                <figure>
+                    <div class="image-placeholder" aria-hidden="true">image</div>
+                </figure>
+            </div>
+        </section>
+
+        <section class="info-section" style="background: var(--light-color);">
+            <div class="container">
+                <div class="section-intro" style="margin-bottom: 32px;">
+                    <span>Soluciones por aplicación</span>
+                    <h2>Ajusta cada detalle de brillo, flujo y textura</h2>
+                    <p>Nuestra línea de medios está pensada para que dirijas la experiencia de color al resultado que imaginas.</p>
+                </div>
+                <div class="benefits-grid">
+                    <article class="benefit-card">
+                        <h3>Secado a tu medida</h3>
+                        <p>Combina medios con retardantes o acelerantes para calendarizar entregas sin sorpresas.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <h3>Acabados memorables</h3>
+                        <p>Define el nivel exacto de brillo, mate o satinado que requiere tu colección.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <h3>Compatibilidad total</h3>
+                        <p>Validamos cada medio en múltiples superficies: muro, textil, madera y lienzo.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Agenda una sesión de formulación</h2>
+                <p>Trabajemos juntos tu combinación de medios, pigmentos y aditivos para lograr el acabado perfecto en tu próxima colección.</p>
+                <div class="hero-actions" style="justify-content: center;">
+                    <a href="#medios-destacados" class="btn btn-primary" onclick="handleCTA(event, 'CTA Final Ver Medios')">Ver medios disponibles</a>
+                    <a href="../pigmentos/index.html" class="btn btn-secondary" onclick="handleCTA(event, 'CTA Final Ver Pigmentos')">Seleccionar pigmentos</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-main-content">
+            <div class="footer-column">
+                <div class="footer-logo">EL<br>PAINT<br>LAB</div>
+                <p>Acompañamos a artistas y equipos creativos a formular colores memorables.</p>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Instagram"></a>
+                    <a href="#" aria-label="Behance"></a>
+                    <a href="#" aria-label="YouTube"></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h6>Navegación</h6>
+                <ul>
+                    <li><a href="../../usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="../../colaboraciones-artistas.html">Artistas / Colaboraciones</a></li>
+                    <li><a href="../../tienda-online.html">Tienda Online</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h6>Nosotros</h6>
+                <ul>
+                    <li><a href="../../nuestra-historia.html">Nuestra Historia</a></li>
+                    <li><a href="../../comunidad-de-arte.html">Comunidad de Arte</a></li>
+                    <li><a href="../../colaboraciones-artistas-patrocinios.html">Patrocinios</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h6>Tienda</h6>
+                <ul>
+                    <li><a href="../pigmentos/index.html">Pigmentos</a></li>
+                    <li><a href="../aditivos/index.html">Aditivos</a></li>
+                    <li><a href="../kits-de-pintura/index.html">Kits Completos</a></li>
+                    <li><a href="index.html">Medios Acrílicos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h6>Soporte</h6>
+                <ul>
+                    <li><a href="../../contacto.html">Contacto</a></li>
+                    <li><a href="#">Envíos y Devoluciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 El Paint Lab. Todos los derechos reservados.</p>
+            <p>Hecho con ❤️ para artistas en México</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleCTA(event, ctaName) {
+            if (event && typeof event.preventDefault === 'function') {
+                const target = event.currentTarget || event.target;
+                const href = target && target.getAttribute ? target.getAttribute('href') : null;
+                if (!href || href === '#') {
+                    event.preventDefault();
+                }
+            }
+            console.log('CTA Clicked:', ctaName);
+        }
+
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('is-open');
+                const isExpanded = mainNav.classList.contains('is-open');
+                menuToggle.setAttribute('aria-expanded', String(isExpanded));
+            });
+        }
+
+        function initProductCarousel() {
+            const carousel = document.getElementById('product-carousel');
+            if (!carousel) return;
+            const track = carousel.querySelector('[data-product-track]');
+            const slides = Array.from(track.children);
+            const prev = carousel.querySelector('[data-product-prev]');
+            const next = carousel.querySelector('[data-product-next]');
+            const indicator = carousel.querySelector('[data-product-indicator]');
+
+            if (!track || slides.length === 0 || !prev || !next) return;
+
+            const cloneCount = Math.min(2, slides.length);
+            const head = slides.slice(0, cloneCount).map((s) => s.cloneNode(true));
+            const tail = slides.slice(-cloneCount).map((s) => s.cloneNode(true));
+            tail.forEach((node) => track.insertBefore(node, track.firstChild));
+            head.forEach((node) => track.appendChild(node));
+
+            let current = 0;
+            let slideWidth = 0;
+            let gap = 24;
+            const totalOriginal = slides.length;
+
+            const setImmediateTranslate = () => {
+                const offset = (current + cloneCount) * slideWidth;
+                track.style.transition = 'none';
+                track.style.transform = `translateX(-${offset}px)`;
+                requestAnimationFrame(() => {
+                    track.style.transition = 'transform 0.4s ease';
+                });
+            };
+
+            const updateIndicator = () => {
+                if (indicator) {
+                    indicator.textContent = `${current + 1} / ${totalOriginal}`;
+                }
+            };
+
+            const compute = () => {
+                const first = track.children[0];
+                const styles = window.getComputedStyle(track);
+                gap = parseFloat(styles.columnGap || styles.gap || '24') || 24;
+                slideWidth = first.getBoundingClientRect().width + gap;
+                setImmediateTranslate();
+                updateIndicator();
+            };
+
+            const move = (dir) => {
+                current = (current + dir + totalOriginal) % totalOriginal;
+                const offset = (current + cloneCount) * slideWidth;
+                track.style.transform = `translateX(-${offset}px)`;
+                updateIndicator();
+            };
+
+            next.addEventListener('click', () => move(1));
+            prev.addEventListener('click', () => move(-1));
+            window.addEventListener('resize', compute);
+            compute();
+        }
+
+        function initSliders() {
+            const sliders = document.querySelectorAll('[data-slider]');
+            sliders.forEach((wrapper) => {
+                const track = wrapper.querySelector('.slider-track');
+                const slides = Array.from(track.children);
+                const nextBtn = wrapper.parentElement.querySelector('[data-slider-next]');
+                const prevBtn = wrapper.parentElement.querySelector('[data-slider-prev]');
+                const indicator = wrapper.parentElement.querySelector('[data-slider-indicator]');
+
+                if (!track || slides.length === 0 || !nextBtn || !prevBtn) {
+                    return;
+                }
+
+                let currentIndex = 0;
+                let slideWidth = 0;
+                let gap = 0;
+                let slidesPerView = 1;
+
+                const updateMetrics = () => {
+                    const trackStyles = window.getComputedStyle(track);
+                    gap = parseFloat(trackStyles.columnGap || trackStyles.gap || '0');
+                    slideWidth = slides[0].getBoundingClientRect().width + gap;
+
+                    const wrapperWidth = wrapper.getBoundingClientRect().width;
+                    slidesPerView = Math.max(1, Math.round(wrapperWidth / slideWidth));
+                    const maxIndex = Math.max(0, slides.length - slidesPerView);
+                    if (currentIndex > maxIndex) {
+                        currentIndex = maxIndex;
+                    }
+                    updateSlider();
+                };
+
+                const updateSlider = () => {
+                    const maxIndex = Math.max(0, slides.length - slidesPerView);
+                    const offset = currentIndex * slideWidth;
+                    track.style.transform = `translateX(-${offset}px)`;
+                    prevBtn.disabled = currentIndex === 0;
+                    nextBtn.disabled = currentIndex >= maxIndex;
+                    if (indicator) {
+                        indicator.textContent = `${Math.min(currentIndex + 1, slides.length)} / ${slides.length}`;
+                    }
+                };
+
+                nextBtn.addEventListener('click', () => {
+                    const maxIndex = Math.max(0, slides.length - slidesPerView);
+                    currentIndex = Math.min(currentIndex + 1, maxIndex);
+                    updateSlider();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = Math.max(currentIndex - 1, 0);
+                    updateSlider();
+                });
+
+                window.addEventListener('resize', () => {
+                    updateMetrics();
+                });
+
+                updateMetrics();
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initSliders();
+            initProductCarousel();
+        });
+    </script>
+</body>
+</html>

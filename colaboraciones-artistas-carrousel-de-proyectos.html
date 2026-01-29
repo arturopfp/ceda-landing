@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel de Proyectos - El Paint Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .main-header {
+            background: #fff;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: inline-block;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .main-nav {
+            display: none; /* Hidden on mobile by default */
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #0066cc;
+        }
+
+        .nav-cta-button {
+            display: none; /* Hidden by default */
+        }
+
+        .main-nav a.btn-primary {
+            color: #fff;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .mobile-menu-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: #000;
+        }
+
+        .mobile-header-right {
+            display: none; /* Hidden on desktop */
+            align-items: center;
+            gap: 10px; /* Añadido un pequeño espacio */
+        }
+
+        .mobile-header-right .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), url('https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            height: auto;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 3px solid #0066cc;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .btn {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero a.btn.btn-primary {
+            background: #fff;
+            color: #0066cc;
+        }
+
+        .hero a.btn.btn-primary:hover {
+            background: #f0f0f0;
+            color: #0052a3;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #0066cc;
+            border: 2px solid #0066cc;
+        }
+
+        .btn-secondary:hover {
+            background: #0066cc;
+            color: #fff;
+        }
+        
+        /* --- ESTILOS PARA NUEVAS SECCIONES --- */
+        .narrative-block {
+            padding: 60px 20px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        .narrative-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .projects-section {
+            background: #fff;
+            padding: 60px 20px;
+        }
+
+        .projects-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            text-align: left;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: #0066cc;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .project-card-image {
+            width: 100%;
+            height: 220px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1rem;
+            font-weight: 500;
+            overflow: hidden;
+        }
+
+        .project-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-card-content {
+            padding: 25px;
+        }
+
+        .project-card-content h3 {
+            font-size: 1.3rem;
+            margin: 0;
+            color: #000;
+        }
+
+        .project-card-content .artist-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .project-card-content .description {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Slider styles for mobile */
+        .slider-container {
+            position: relative;
+            display: none;
+        }
+
+        .slider-wrapper {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            padding: 20px 0;
+        }
+
+        .slider-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-track {
+            display: flex;
+            gap: 20px;
+            padding: 0 10px;
+        }
+
+        .slider-track .project-card {
+            min-width: 280px;
+            max-width: 320px;
+            flex-shrink: 0;
+            scroll-snap-align: center;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: all 0.2s ease;
+            color: #0066cc;
+        }
+
+        .slider-arrow:hover {
+            border-color: #0066cc;
+            background-color: #f8f9fa;
+        }
+
+        .slider-arrow.prev { left: -10px; }
+        .slider-arrow.next { right: -10px; }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ccc;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: #0066cc;
+        }
+
+        .invitation-block {
+            padding: 80px 20px;
+            text-align: center;
+            background: #f2f3f5; /* blanco con más gris */
+            color: #000;
+        }
+
+        .invitation-block blockquote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #333;
+            max-width: 750px;
+            margin: 0 auto 30px auto;
+            font-weight: 500;
+        }
+
+        .invitation-block cite {
+            display: block;
+            font-weight: 600;
+            color: #000;
+            font-style: normal;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .invitation-block p { display: none; } /* Ocultamos el p original si existiera */
+
+        .invitation-block .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+ 
+        .invitation-block .btn-primary {
+            background: #0066cc;
+            color: #fff;
+        }
+        .invitation-block .btn-secondary {
+            background: #fff;
+            color: #0066cc;
+            border: 2px solid #0066cc;
+        }
+        .invitation-block .btn-secondary:hover {
+            background: #f0f6ff;
+            color: #0052a3;
+            border-color: #0052a3;
+        }
+
+        /* --- INICIA ZONA DE CÓDIGO RESPONSIVE --- */
+        @media (max-width: 920px) {
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 81px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                border-bottom: 1px solid #e0e0e0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            }
+            .main-nav.is-open {
+                display: block;
+            }
+            .mobile-header-right {
+                display: flex;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .nav-cta-button {
+                display: none;
+            }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1.1rem; }
+            .hero h2 { font-size: 1.1rem; }
+            
+            /* Show slider, hide grid on mobile */
+            .projects-grid {
+                display: none;
+            }
+            .slider-container {
+                display: block;
+            }
+        }
+
+        @media (min-width: 921px) {
+            .main-nav { display: flex; }
+            .nav-cta-button { display: inline-block; }
+            .mobile-menu-toggle { display: none; }
+            .mobile-header-right .btn-primary { display: none; }
+        }
+        /* --- TERMINA ZONA DE CÓDIGO RESPONSIVE --- */
+
+        html { scroll-behavior: smooth; }
+        .btn:focus { outline: 3px solid #0066cc; outline-offset: 2px; }
+        
+        /* Footer Styles */
+        .custom-footer, .footer-column ul li a { color: #ffffff; }
+        .custom-footer { background-color: #1e293b; padding: 60px 40px 20px; font-family: sans-serif; }
+        .footer-main-content { display: flex; justify-content: space-between; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-column { flex: 1; min-width: 200px; padding: 0 15px; }
+        .footer-logo { border: 2px solid #ffffff; padding: 20px; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 1.5em; letter-spacing: 2px; line-height: 1.2; }
+        .footer-social-icons { margin-top: 20px; display: flex; gap: 10px; }
+        .footer-social-icons a { display: inline-block; width: 30px; height: 30px; background-color: #4a4a8a; border-radius: 3px; }
+        .footer-column h6 { font-size: 16px; font-weight: bold; margin-bottom: 20px; text-transform: capitalize; }
+        .footer-column ul { list-style: none; padding: 0; margin: 0; }
+        .footer-column ul li { margin-bottom: 12px; }
+        .footer-column ul li a { text-decoration: none; transition: color 0.3s ease; }
+        .footer-column ul li a:hover { color: #f59e0b; }
+        .footer-bottom { text-align: center; font-size: 14px; color: #dddddd; }
+        .footer-bottom p { margin: 5px 0; }
+
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="../colaboraciones-artistas.html" class="logo-link">
+                <img src="https://staging-a676-acrilicamexicana.wpcomstaging.com/wp-content/uploads/2021/09/LOGOTIPO_-ORIGINAL_EL-PAINT-LAB-84x84.jpg" alt="El Paint Lab Logo" class="logo">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="../usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="../colaboraciones-artistas.html" class="active">Artistas / Colaboraciones</a></li>
+                    <li><a href="#">Comunidad de Arte</a></li>
+                    <li><a href="#">Cómo funciona</a></li>
+                    <li><a href="#">Nuestra Historia</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#" class="btn btn-primary nav-cta-button">Comprar Ahora</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-header-right">
+                <a href="#" class="btn btn-primary" onclick="handleCTA(event, 'Comprar ahora')">Comprar Ahora</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+                    <svg class="ast-mobile-svg ast-menu-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M3 13h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 7h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 19h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero Block -->
+        <section class="hero">
+            <div class="container">
+                <h1>Carrousel de Proyectos</h1>
+                <p>Una muestra de los procesos, obras y experimentaciones creadas con los pigmentos y medios de El Paint Lab.</p>
+                <a href="#projects" class="btn btn-primary" onclick="handleCTA(event, 'Explorar todos los proyectos')">Explorar la galería</a>
+            </div>
+        </section>
+
+        <!-- 2. Narrative Block -->
+        <section class="narrative-block">
+            <div class="container">
+                <h2>Cada proyecto es una conversación entre técnica, color y expresión.</h2>
+                <p>Las colaboraciones con artistas nos permiten llevar los materiales a su máximo potencial. Desde proyectos de estudio hasta montajes institucionales, cada iniciativa refleja la versatilidad y el alcance de nuestras formulaciones acrílicas.</p>
+            </div>
+        </section>
+
+        <!-- 3. Projects Carousel/Grid -->
+        <section class="projects-section" id="projects">
+            <div class="container">
+                <h2>Creaciones realizadas junto a nuestra comunidad de artistas.</h2>
+                <!-- Desktop Grid -->
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-card-image">Image placeholder</div>
+                        <div class="project-card-content">
+                            <p class="artist-name">Ana López</p>
+                            <h3>“Pigmentos en movimiento”</h3>
+                            <p class="description">Exploración con medios acrílicos fluidos en gran formato.</p>
+                            <a href="#" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="handleCTA(event, 'Ver más - Pigmentos en movimiento')">Ver más</a>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-card-image">Image placeholder</div>
+                        <div class="project-card-content">
+                            <p class="artist-name">Esteban Cruz</p>
+                            <h3>“Materia y Luz”</h3>
+                            <p class="description">Ensayo sobre pigmentos metálicos en espacios arquitectónicos.</p>
+                            <a href="#" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="handleCTA(event, 'Ver más - Materia y Luz')">Ver más</a>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-card-image">Image placeholder</div>
+                        <div class="project-card-content">
+                            <p class="artist-name">Mariela Soto</p>
+                            <h3>“Color suspendido”</h3>
+                            <p class="description">Instalación con pigmentos naturales y medios experimentales.</p>
+                            <a href="#" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="handleCTA(event, 'Ver más - Color suspendido')">Ver más</a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Mobile Slider -->
+                <div class="slider-container">
+                    <button class="slider-arrow prev" aria-label="Previous slide">‹</button>
+                    <div class="slider-wrapper">
+                        <div class="slider-track">
+                            <article class="project-card">
+                                <div class="project-card-image">Image placeholder</div>
+                                <div class="project-card-content">
+                                    <p class="artist-name">Ana López</p>
+                                    <h3>“Pigmentos en movimiento”</h3>
+                                    <p class="description">Exploración con medios acrílicos fluidos en gran formato.</p>
+                                    <a href="#" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="handleCTA(event, 'Ver más - Pigmentos en movimiento')">Ver más</a>
+                                </div>
+                            </article>
+                            <article class="project-card">
+                                <div class="project-card-image">Image placeholder</div>
+                                <div class="project-card-content">
+                                    <p class="artist-name">Esteban Cruz</p>
+                                    <h3>“Materia y Luz”</h3>
+                                    <p class="description">Ensayo sobre pigmentos metálicos en espacios arquitectónicos.</p>
+                                    <a href="#" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="handleCTA(event, 'Ver más - Materia y Luz')">Ver más</a>
+                                </div>
+                            </article>
+                            <article class="project-card">
+                                <div class="project-card-image">Image placeholder</div>
+                                <div class="project-card-content">
+                                    <p class="artist-name">Mariela Soto</p>
+                                    <h3>“Color suspendido”</h3>
+                                    <p class="description">Instalación con pigmentos naturales y medios experimentales.</p>
+                                    <a href="#" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="handleCTA(event, 'Ver más - Color suspendido')">Ver más</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <button class="slider-arrow next" aria-label="Next slide">›</button>
+                    <div class="slider-dots">
+                        <button class="slider-dot active" aria-label="Go to slide 1"></button>
+                        <button class="slider-dot" aria-label="Go to slide 2"></button>
+                        <button class="slider-dot" aria-label="Go to slide 3"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Invitation/Action Block -->
+        <section class="invitation-block">
+            <div class="container">
+                <blockquote>“Trabajar con los pigmentos de El Paint Lab me permitió entender el color como materia viva.”</blockquote>
+                <cite>— Artista colaborador invitado</cite>
+                <div class="cta-buttons">
+                    <a href="../usos-e-industrias.html" class="btn btn-secondary" onclick="handleCTA(event, 'Ver Usos e Industrias')">Ver Usos e Industrias</a>
+                    <a href="../colaboraciones-artistas.html" class="btn btn-primary" onclick="handleCTA(event, 'Ver más colaboraciones')">Ver más colaboraciones</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-main-content">
+            <div class="footer-column">
+                <div class="footer-logo">EL<br>PAINT<br>LAB</div>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Facebook"></a>
+                    <a href="#" aria-label="Twitter"></a>
+                    <a href="#" aria-label="Instagram"></a>
+                </div>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Navegación</h6>
+                <ul>
+                    <li><a href="../usos-e-industrias.html">Usos e Industrias</a></li>
+                    <li><a href="../colaboraciones-artistas.html">Artistas/Colaboraciones</a></li>
+                    <li><a href="#">Comunidad de Arte</a></li>
+                    <li><a href="#">Nuestra Historia</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Tienda</h6>
+                <ul>
+                    <li><a href="#">Pigmentos Fríos</a></li>
+                    <li><a href="#">Pigmentos Cálidos</a></li>
+                    <li><a href="#">Medios Acrílicos</a></li>
+                    <li><a href="#">Kits Completos</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Soporte</h6>
+                <ul>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Envíos y Devoluciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>© 2025 El Paint Lab. Todos los derechos reservados.</p>
+            <p>Hecho con ❤️ para artistas en México</p>
+        </div>
+    </footer>
+
+    <script>
+        // CTA Click Handler
+        function handleCTA(event, ctaName) {
+            event.preventDefault();
+            console.log('CTA Clicked:', ctaName);
+            // alert('Wireframe: ' + ctaName + ' clicked');
+        }
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('is-open');
+                const isExpanded = mainNav.classList.contains('is-open');
+                menuToggle.setAttribute('aria-expanded', isExpanded);
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Projects Slider for Mobile
+        const sliderWrapper = document.querySelector('.slider-wrapper');
+        const sliderTrack = document.querySelector('.slider-track');
+        const sliderCards = document.querySelectorAll('.slider-track .project-card');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+        const prevButton = document.querySelector('.slider-arrow.prev');
+        const nextButton = document.querySelector('.slider-arrow.next');
+
+        if (sliderWrapper && sliderCards.length > 0) {
+            let currentSlide = 0;
+            const totalSlides = sliderCards.length;
+            let updateDotsTimeout;
+
+            function scrollToSlide(index) {
+                const card = sliderCards[index];
+                if (card) {
+                    card.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
+
+            function updateDots() {
+                // Debounce to avoid excessive calculations during scroll
+                clearTimeout(updateDotsTimeout);
+                updateDotsTimeout = setTimeout(() => {
+                    const scrollLeft = sliderWrapper.scrollLeft;
+                    const cardWidth = sliderCards[0]?.offsetWidth;
+                    const gap = 20; // gap between cards
+
+                    if (cardWidth) {
+                        const newCurrentSlide = Math.round(scrollLeft / (cardWidth + gap));
+
+                        if (newCurrentSlide !== currentSlide && newCurrentSlide >= 0 && newCurrentSlide < totalSlides) {
+                            currentSlide = newCurrentSlide;
+                            sliderDots.forEach((dot, index) => {
+                                dot.classList.toggle('active', index === currentSlide);
+                            });
+                        }
+                    }
+                }, 100);
+            }
+
+            function nextSlide() {
+                let nextIndex = (currentSlide + 1) % totalSlides;
+                scrollToSlide(nextIndex);
+            }
+
+            function prevSlide() {
+                let prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+                scrollToSlide(prevIndex);
+            }
+
+            if (nextButton) nextButton.addEventListener('click', nextSlide);
+            if (prevButton) prevButton.addEventListener('click', prevSlide);
+
+            sliderDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    scrollToSlide(index);
+                });
+            });
+
+            sliderWrapper.addEventListener('scroll', updateDots);
+
+            // Initialize
+            if (sliderDots.length > 0) {
+                sliderDots[0].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

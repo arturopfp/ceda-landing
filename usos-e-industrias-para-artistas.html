@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinturas para Artistas - El Paint Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .main-header {
+            background: #fff;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: inline-block;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .main-nav {
+            display: none; /* Hidden on mobile by default */
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #0066cc;
+        }
+
+        .nav-cta-button {
+            display: none; /* Hidden by default */
+        }
+
+        .main-nav a.btn-primary {
+            color: #fff;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .mobile-menu-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: #000;
+        }
+
+        .mobile-header-right {
+            display: none; /* Hidden on desktop */
+            align-items: center;
+            gap: 10px; /* Añadido un pequeño espacio */
+        }
+
+        .mobile-header-right .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 3px solid #0066cc;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 30px; /* Increased margin for button spacing */
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .btn {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* This is a new section style, modeled after existing ones for consistency */
+        .benefits-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .benefits-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .benefits-section .benefits-list {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            text-align: left;
+        }
+
+        .benefits-section .benefits-list li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .benefits-section .benefits-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            color: #0066cc;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .benefits-section .benefits-subtitle {
+             font-size: 1.1rem;
+             font-weight: 700;
+             color: #333;
+             max-width: 700px;
+             margin: 40px auto 0 auto;
+        }
+
+        .benefits-section .products-carousel-wrapper {
+            position: relative;
+            max-width: 1050px;
+            margin: 40px auto 30px auto;
+        }
+
+        .benefits-section .products-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .benefits-section .products-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .benefits-section .product-card {
+            min-width: 240px;
+            max-width: 240px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            scroll-snap-align: center;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .benefits-section .product-card .product-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            background: #e0e0e0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .benefits-section .product-card .product-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .benefits-section .product-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .benefits-section .product-card .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: #0066cc;
+            color: #fff;
+            display: inline-block;
+        }
+
+        .benefits-section .product-card .btn-small:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        .benefits-section .carousel-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .benefits-section .carousel-nav-button:hover {
+            border-color: #0066cc;
+            background-color: #f8f9fa;
+        }
+
+        .benefits-section .carousel-nav-button svg {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+        }
+
+        #products-carousel-prev { left: -22px; }
+        #products-carousel-next { right: -22px; }
+
+        .btn-primary {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        /* Override for link buttons in main (not nav buttons) */
+        main a.btn.btn-primary {
+            background: #fff;
+            color: #0066cc;
+        }
+
+        main a.btn.btn-primary:hover {
+            background: #f0f0f0;
+            color: #0052a3;
+        }
+
+        /* Override for hero button specifically */
+        .hero a.btn.btn-primary {
+            background: #fff;
+            color: #0066cc;
+        }
+
+        .hero a.btn.btn-primary:hover {
+            background: #f0f0f0;
+            color: #0052a3;
+        }
+
+        /* Specific override for store button */
+        main a.btn.btn-primary.btn-store {
+            background: #0066cc;
+            color: #fff;
+        }
+
+        main a.btn.btn-primary.btn-store:hover {
+            background: #0052a3;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #0066cc;
+            border: 2px solid #0066cc;
+        }
+
+        .btn-secondary:hover {
+            background: #0066cc;
+            color: #fff;
+        }
+        
+        /* Styles for social proof section (reused) */
+        .social-proof {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .social-proof h2 { /* Using H2 for semantic structure */
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .social-proof p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            max-width: 1050px; /* Adjust to fit 3 cards comfortably */
+            margin: 0 auto;
+        }
+
+        .testimonial-carousel {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .testimonial-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .testimonial-card {
+            min-width: 300px;
+            max-width: 320px; /* Added max-width for consistency */
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            scroll-snap-align: center;
+            text-align: left; /* Aligned text to the left */
+        }
+        
+        .testimonial-card .artist-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .testimonial-card blockquote {
+            font-size: 1.1rem;
+            margin: 0 0 15px 0;
+            font-style: italic;
+            color: #333;
+        }
+
+        .testimonial-card cite {
+            font-weight: 600;
+            color: #000;
+            font-style: normal;
+        }
+
+
+        .carousel-button:hover {
+            border-color: #0066cc;
+            background-color: #f8f9fa;
+        }
+
+        .carousel-button svg {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+        }
+
+        #carousel-prev { left: -22px; }
+        #carousel-next { right: -22px; }
+
+        /* Product description section */
+        .product-description {
+            padding: 60px 20px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .product-description h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .product-description p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        .product-description .image-placeholder {
+            max-width: 800px;
+            width: 100%;
+            height: 400px;
+            margin: 0 auto;
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1rem;
+        }
+
+        .product-description .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        /* Final CTA section styles (reused) */
+        .final-ctas {
+            padding: 80px 20px; /* Increased padding */
+            text-align: center;
+            background: #fff;
+        }
+
+        .final-ctas h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* --- INICIA ZONA DE CÓDIGO RESPONSIVE --- */
+        @media (max-width: 920px) {
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 81px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                border-bottom: 1px solid #e0e0e0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            }
+            .main-nav.is-open {
+                display: block;
+            }
+            .mobile-header-right {
+                display: flex;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .nav-cta-button {
+                display: none;
+            }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            .product-description h2 { font-size: 1.5rem; }
+            .product-description p { font-size: 1rem; }
+            .product-description .image-placeholder { height: 250px; }
+            .benefits-section h2, .social-proof h2 { font-size: 1.5rem; }
+
+            #products-carousel-prev {
+                left: 5px;
+            }
+            #products-carousel-next {
+                right: 5px;
+            }
+            
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .cta-buttons .btn { width: 100%; max-width: 300px; }
+            
+            .carousel-button {
+                width: 40px;
+                height: 40px;
+            }
+            #carousel-prev {
+                left: 5px;
+            }
+            #carousel-next {
+                right: 5px;
+            }
+        }
+
+        @media (min-width: 921px) {
+            .main-nav { display: flex; }
+            .nav-cta-button { display: inline-block; }
+            .mobile-menu-toggle { display: none; }
+            .mobile-header-right .btn-primary { display: none; }
+            .hero { padding: 100px 20px; } /* Increased padding for desktop */
+        }
+        /* --- TERMINA ZONA DE CÓDIGO RESPONSIVE --- */
+
+        html { scroll-behavior: smooth; }
+        .btn:focus { outline: 3px solid #0066cc; outline-offset: 2px; }
+        
+        /* Footer Styles */
+        .custom-footer, .footer-column ul li a { color: #ffffff; }
+        .custom-footer { background-color: #1e293b; padding: 60px 40px 20px; font-family: sans-serif; }
+        .footer-main-content { display: flex; justify-content: space-between; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-column { flex: 1; min-width: 200px; padding: 0 15px; }
+        .footer-logo { border: 2px solid #ffffff; padding: 20px; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 1.5em; letter-spacing: 2px; line-height: 1.2; }
+        .footer-social-icons { margin-top: 20px; display: flex; gap: 10px; }
+        .footer-social-icons a { display: inline-block; width: 30px; height: 30px; background-color: #4a4a8a; border-radius: 3px; }
+        .footer-column h6 { font-size: 16px; font-weight: bold; margin-bottom: 20px; text-transform: capitalize; }
+        .footer-column ul { list-style: none; padding: 0; margin: 0; }
+        .footer-column ul li { margin-bottom: 12px; }
+        .footer-column ul li a { text-decoration: none; transition: color 0.3s ease; }
+        .footer-column ul li a:hover { color: #f59e0b; }
+        .footer-bottom { text-align: center; font-size: 14px; color: #dddddd; }
+        .footer-bottom p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo-link">
+                <img src="https://staging-a676-acrilicamexicana.wpcomstaging.com/wp-content/uploads/2021/09/LOGOTIPO_-ORIGINAL_EL-PAINT-LAB-84x84.jpg" alt="El Paint Lab Logo" class="logo">
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="#" class="active">Usos e Industrias</a></li>
+                    <li><a href="#">Artistas / Colaboraciones</a></li>
+                    <li><a href="#">Comunidad de Arte</a></li>
+                    <li><a href="#">Cómo funciona</a></li>
+                    <li><a href="#">Nuestra Historia</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#" class="btn btn-primary nav-cta-button">Comprar Ahora</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-header-right">
+                <a href="#" class="btn btn-primary" onclick="handleCTA(event, 'Comprar ahora')">Comprar Ahora</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+                    <svg class="ast-mobile-svg ast-menu-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M3 13h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 7h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1zM3 19h18c0.552 0 1-0.448 1-1s-0.448-1-1-1h-18c-0.552 0-1 0.448-1 1s0.448 1 1 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="container">
+                <h1>Pinturas diseñadas para artistas exigentes.</h1>
+                <p>Pigmentos concentrados y medios acrílicos que te dan control total del color y acabado.</p>
+                <a href="#" class="btn btn-primary" onclick="handleCTA(event, 'Ver productos para artistas')">Ver productos para artistas</a>
+            </div>
+        </section>
+
+        <section class="product-description">
+            <div class="container">
+                <h2>Materiales profesionales, resultado excepcional.</h2>
+                <p>Desarrolladas con pigmentos de alta pureza y medios de formulación propia, nuestras pinturas ofrecen estabilidad cromática, flexibilidad en la aplicación y compatibilidad con cualquier técnica acrílica. Cada mezcla está pensada para que el artista experimente sin límites y obtenga resultados consistentes en cada obra.</p>
+                <div class="image-placeholder">
+                    <!-- <img src="ruta-de-la-imagen.jpg" alt="Descripción de la imagen"> -->
+                    Espacio para imagen
+                </div>
+            </div>
+        </section>
+
+        <section class="benefits-section">
+            <div class="container">
+                <h2>Creadas pensando en tu proceso creativo.</h2>
+                <ul class="benefits-list">
+                    <li>Máxima pureza y concentración de pigmento.</li>
+                    <li>Rendimiento y textura profesional.</li>
+                    <li>Compatibles con distintas técnicas.</li>
+                </ul>
+
+                <p class="benefits-subtitle">Conoce los materiales preferidos por artistas que buscan calidad y rendimiento.</p>
+
+                <div class="products-carousel-wrapper">
+                    <button id="products-carousel-prev" class="carousel-nav-button" aria-label="Anterior producto">
+                        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
+                    </button>
+                    <div class="products-carousel" id="products-carousel">
+
+                        <article class="product-card">
+                            <div class="product-photo">
+                                <!-- <img src="producto1.jpg" alt="Producto 1"> -->
+                                Foto
+                            </div>
+                            <h3>Producto 1</h3>
+                            <a href="#" class="btn-small" onclick="handleCTA(event, 'Ver Producto 1')">Ver más</a>
+                        </article>
+
+                        <article class="product-card">
+                            <div class="product-photo">
+                                <!-- <img src="producto2.jpg" alt="Producto 2"> -->
+                                Foto
+                            </div>
+                            <h3>Producto 2</h3>
+                            <a href="#" class="btn-small" onclick="handleCTA(event, 'Ver Producto 2')">Ver más</a>
+                        </article>
+
+                        <article class="product-card">
+                            <div class="product-photo">
+                                <!-- <img src="producto3.jpg" alt="Producto 3"> -->
+                                Foto
+                            </div>
+                            <h3>Producto 3</h3>
+                            <a href="#" class="btn-small" onclick="handleCTA(event, 'Ver Producto 3')">Ver más</a>
+                        </article>
+
+                        <article class="product-card">
+                            <div class="product-photo">
+                                <!-- <img src="producto4.jpg" alt="Producto 4"> -->
+                                Foto
+                            </div>
+                            <h3>Producto 4</h3>
+                            <a href="#" class="btn-small" onclick="handleCTA(event, 'Ver Producto 4')">Ver más</a>
+                        </article>
+
+                    </div>
+                    <button id="products-carousel-next" class="carousel-nav-button" aria-label="Siguiente producto">
+                        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg>
+                    </button>
+                </div>
+
+                <a href="#" class="btn btn-secondary" onclick="handleCTA(event, 'Explorar pigmentos')">Explorar pigmentos</a>
+            </div>
+        </section>
+
+        <section class="social-proof">
+            <div class="container">
+                <h2>Artistas que crean con El Paint Lab.</h2>
+                <p>Explora las obras y colaboraciones que inspiran nuestra comunidad.</p>
+                
+                <div class="carousel-wrapper">
+                    <button id="carousel-prev" class="carousel-button" aria-label="Anterior testimonio">
+                        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
+                    </button>
+                    <div class="testimonial-carousel" id="testimonial-carousel">
+                        
+                        <article class="testimonial-card">
+                            <div class="artist-photo">Foto</div>
+                            <blockquote>"La saturación y durabilidad son impresionantes."</blockquote>
+                            <cite>— Artista 1</cite>
+                        </article>
+
+                        <article class="testimonial-card">
+                            <div class="artist-photo">Foto</div>
+                            <blockquote>"Puedo personalizar mi mezcla exacta de tonos."</blockquote>
+                            <cite>— Artista 2</cite>
+                        </article>
+
+                        <article class="testimonial-card">
+                            <div class="artist-photo">Foto</div>
+                            <blockquote>"El rendimiento me permite trabajar en formatos grandes."</blockquote>
+                            <cite>— Artista 3</cite>
+                        </article>
+
+                    </div>
+                    <button id="carousel-next" class="carousel-button" aria-label="Siguiente testimonio">
+                        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg>
+                    </button>
+                </div>
+                <div style="margin-top: 40px;">
+                    <a href="#" class="btn btn-secondary" onclick="handleCTA(event, 'Ver más artistas')">Ver más artistas</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-ctas">
+            <div class="container">
+                <h3>Lleva tu obra al siguiente nivel con materiales de calidad profesional.</h3>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary btn-store" onclick="handleCTA(event, 'Ir a la tienda de artistas')">Ir a la tienda de artistas</a>
+                    <a href="#" class="btn btn-secondary" onclick="handleCTA(event, 'Contactar asesor')">Contactar asesor</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-main-content">
+            <div class="footer-column">
+                <div class="footer-logo">EL<br>PAINT<br>LAB</div>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Facebook"></a>
+                    <a href="#" aria-label="Twitter"></a>
+                    <a href="#" aria-label="Instagram"></a>
+                </div>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Navegación</h6>
+                <ul>
+                    <li><a href="#">Usos e Industrias</a></li>
+                    <li><a href="#">Artistas/Colaboraciones</a></li>
+                    <li><a href="#">Comunidad de Arte</a></li>
+                    <li><a href="#">Nuestra Historia</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Tienda</h6>
+                <ul>
+                    <li><a href="#">Pigmentos Fríos</a></li>
+                    <li><a href="#">Pigmentos Cálidos</a></li>
+                    <li><a href="#">Medios Acrílicos</a></li>
+                    <li><a href="#">Kits Completos</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h6>Soporte</h6>
+                <ul>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Envíos y Devoluciones</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>© 2025 El Paint Lab. Todos los derechos reservados.</p>
+            <p>Hecho con ❤️ para artistas en México</p>
+        </div>
+    </footer>
+
+    <script>
+        // CTA Click Handler
+        function handleCTA(event, ctaName) {
+            event.preventDefault();
+            console.log('CTA Clicked:', ctaName);
+            // alert('Wireframe: ' + ctaName + ' clicked');
+        }
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('is-open');
+                const isExpanded = mainNav.classList.contains('is-open');
+                menuToggle.setAttribute('aria-expanded', isExpanded);
+            });
+        }
+
+        // Products Carousel
+        const productsCarousel = document.getElementById('products-carousel');
+        const productsPrevButton = document.getElementById('products-carousel-prev');
+        const productsNextButton = document.getElementById('products-carousel-next');
+
+        if (productsCarousel && productsPrevButton && productsNextButton) {
+            const productCard = productsCarousel.querySelector('.product-card');
+            const productScrollAmount = productCard ? productCard.offsetWidth + 20 : 260;
+
+            productsNextButton.addEventListener('click', () => {
+                if (productsCarousel.scrollLeft + productsCarousel.clientWidth >= productsCarousel.scrollWidth - 10) {
+                    productsCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    productsCarousel.scrollBy({ left: productScrollAmount, behavior: 'smooth' });
+                }
+            });
+
+            productsPrevButton.addEventListener('click', () => {
+                if (productsCarousel.scrollLeft === 0) {
+                    productsCarousel.scrollTo({ left: productsCarousel.scrollWidth, behavior: 'smooth' });
+                } else {
+                    productsCarousel.scrollBy({ left: -productScrollAmount, behavior: 'smooth' });
+                }
+            });
+        }
+
+        // Testimonial Carousel
+        const carousel = document.getElementById('testimonial-carousel');
+        const prevButton = document.getElementById('carousel-prev');
+        const nextButton = document.getElementById('carousel-next');
+
+        if (carousel && prevButton && nextButton) {
+            const card = carousel.querySelector('.testimonial-card');
+            const scrollAmount = card ? card.offsetWidth + 30 : 330;
+
+            nextButton.addEventListener('click', () => {
+                if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) { // Added tolerance
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+            });
+
+            prevButton.addEventListener('click', () => {
+                if (carousel.scrollLeft === 0) {
+                    carousel.scrollTo({ left: carousel.scrollWidth, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                }
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !href.includes('shop') && !href.includes('demo') && !href.includes('contact')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.product-description, .benefits-section, .social-proof, .final-ctas').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

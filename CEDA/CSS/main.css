@@ -4,7 +4,13 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,6 +25,14 @@ body {
 }
 body p {
   color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
 }
 
 .sticky-banner-container {
@@ -53,6 +67,9 @@ body p {
 .sticky-banner-container .cta-btn {
   width: 140px;
   height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #B4BD00;
   color: black;
   margin-left: 70px;
@@ -63,7 +80,6 @@ body p {
 
 .header-container {
   width: 847px;
-  margin-top: 175px;
 }
 @media (max-width: 600px) {
   .header-container {
@@ -80,22 +96,32 @@ body p {
   }
 }
 
-section {
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  /* Ocultar scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.scroll-container section {
+  height: 100vh;
+  scroll-snap-align: start;
   display: flex;
-  justify-content: space-between;
-  width: 847px;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 @media (max-width: 600px) {
-  section {
+  .scroll-container section {
     width: 311px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 }
-section .card-subcontainer {
+.scroll-container section .card-subcontainer {
   width: 260px;
   height: 391px;
   display: flex;
@@ -104,18 +130,20 @@ section .card-subcontainer {
   background: linear-gradient(to bottom, #1f1d1d, rgba(0, 0, 0, 0));
   border-radius: 30px;
 }
-section .card-subcontainer .card-header {
+.scroll-container section .card-subcontainer .card-header {
   margin-top: 32px;
   margin-bottom: 33px;
   min-height: 66px;
 }
-section .card-subcontainer p {
+.scroll-container section .card-subcontainer p {
   font-size: 12px;
   width: 215px;
   text-align: center;
 }
-section .certification-container {
+.scroll-container section .certification-container {
   width: 414px;
+  height: -moz-fit-content;
+  height: fit-content;
   padding: 50px 20px;
   border: 1px solid #B4BD00;
   border-radius: 25px;
@@ -123,17 +151,17 @@ section .certification-container {
   margin-bottom: 125px;
 }
 @media (max-width: 600px) {
-  section .certification-container {
+  .scroll-container section .certification-container {
     width: 297px;
     height: auto;
     margin-bottom: 70px;
   }
 }
-section .certification-container .certification-header {
+.scroll-container section .certification-container .certification-header {
   display: flex;
   font-weight: bold;
 }
-section .certification-container .certification-header .certification-logo {
+.scroll-container section .certification-container .certification-header .certification-logo {
   width: 43px;
   height: 45px;
   background-color: black;
@@ -143,61 +171,61 @@ section .certification-container .certification-header .certification-logo {
   border-radius: 9px;
 }
 @media (max-width: 600px) {
-  section .certification-container .certification-header .certification-logo {
+  .scroll-container section .certification-container .certification-header .certification-logo {
     height: auto;
   }
 }
-section .certification-container .certification-header .certification-logo img {
+.scroll-container section .certification-container .certification-header .certification-logo img {
   width: 32px;
   height: 31px;
 }
-section .certification-container .certification-header .header-info {
+.scroll-container section .certification-container .certification-header .header-info {
   margin-left: 14px;
 }
-section .certification-container .certification-header .header-info h3 {
+.scroll-container section .certification-container .certification-header .header-info h3 {
   font-size: 20px;
   width: 321px;
   color: white;
 }
 @media (max-width: 600px) {
-  section .certification-container .certification-header .header-info h3 {
+  .scroll-container section .certification-container .certification-header .header-info h3 {
     font-size: 13px;
     width: auto;
   }
 }
-section .certification-container .certification-header .header-info .subheading-container {
+.scroll-container section .certification-container .certification-header .header-info .subheading-container {
   display: flex;
   align-items: center;
   margin-top: 4px;
 }
-section .certification-container .certification-header .header-info .subheading-container img {
+.scroll-container section .certification-container .certification-header .header-info .subheading-container img {
   margin-right: 5px;
 }
-section .certification-container .certification-header .header-info .subheading-container .white-txt {
+.scroll-container section .certification-container .certification-header .header-info .subheading-container .white-txt {
   color: white;
   margin-left: 5px;
 }
-section .certification-container .certification-body {
+.scroll-container section .certification-container .certification-body {
   margin-top: 20px;
 }
-section .certification-container .certification-body ul {
+.scroll-container section .certification-container .certification-body ul {
   margin-top: 25px;
   padding-left: 40px;
 }
-section .certification-container .certification-body ul li {
+.scroll-container section .certification-container .certification-body ul li {
   color: white;
   font-weight: lighter;
   font-size: 12px;
   margin-top: 5px;
 }
-section .certification-container .certification-footer {
+.scroll-container section .certification-container .certification-footer {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-top: 30px;
   margin-bottom: 20px;
 }
-section .certification-container .certification-footer .btn-matriculacion {
+.scroll-container section .certification-container .certification-footer .btn-matriculacion {
   width: 132px;
   height: 38px;
   display: flex;
@@ -208,6 +236,33 @@ section .certification-container .certification-footer .btn-matriculacion {
   background-color: #161616;
   font-size: 14px;
   border-radius: 4px;
+}
+
+.body-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Opera */
+}
+
+.certification-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.card-wrapper {
+  width: 847px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.wrapper-certif-section {
+  width: 950px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .form-section {
